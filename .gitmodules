@@ -1,0 +1,9 @@
+[submodule "blog/themes/after-dark"]
+	path = blog/themes/after-dark
+	url = https://github.com/getzola/after-dark.git
+[submodule "blog/themes/even"]
+	path = blog/themes/even
+	url = https://github.com/getzola/even.git
+[submodule "themes/after-dark"]
+	path = themes/after-dark
+	url = https://github.com/getzola/after-dark.git
