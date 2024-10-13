@@ -30,7 +30,7 @@ textual information, transforming this into a blog item that might help someone 
 facing the same problem again is an attactive proposition.
 - [Complex Systems Podcast][3]: I have recently been enjoying the podcast Complex Systems hosted by Patrick McKenzie (Patio11)
 which in many of it's episodes re-enforces the role of regular written communication and the benefits of it in
-critical thiking and self-examination.
+critical thinking and self-examination.
 - "Show your workings": During secondary school it was drilled into me to always show my workings,
 the right answer wasn't always enough, demonstrating how you came to that answer was almost as important[^2].
 This is something I didn't value at the time but found time and again in my professional life that
