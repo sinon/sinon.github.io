@@ -1,5 +1,5 @@
 +++
-title = "Starting a blog - WIP"
+title = "Starting a blog"
 date = 2024-10-13
 
 [taxonomies]
