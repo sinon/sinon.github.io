@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://sinon.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://sinon.github.io/categories/</loc>
+    </url>
+    <url>
+        <loc>https://sinon.github.io/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://sinon.github.io/starting-a-blog/</loc>
+        <lastmod>2024-10-13</lastmod>
+    </url>
+    <url>
+        <loc>https://sinon.github.io/tags/</loc>
+    </url>
+    <url>
+        <loc>https://sinon.github.io/tags/blogging/</loc>
+    </url>
+    <url>
+        <loc>https://sinon.github.io/tags/zola/</loc>
+    </url>
+</urlset>
