@@ -52,12 +52,10 @@ The right answer wasn't always enough; demonstrating how you came to that answer
 
 ### Why Zola?
 
-- It's written in Rust :zap:. There is my on-going side project to get more proficient at Rust and find avenues for to leverage and embed this learning.
-So [Zola][4] being written in Rust was a big plus, in the hope that if I started blogging regularly I might find
-reason to delve into some OSS contributions in Zola itself.
+- [Zola][4] is written in Rust :zap: which aligns well with my ongoing side project to improve my Rust proficiency. I'm actively seeking opportunities to apply and deepen my Rust knowledge, so Zola's Rust foundation was a significant factor in my decision. By using Zola regularly for blogging, I hope to familiarize myself with its codebase. This familiarity could potentially lead to contributing to Zola's open-source project in the future, further enhancing my Rust skills.
 - It's a SSG (Static Site Generator) which works nicely with Github Pages.
 - Builds off strong pre-existing tooling such as Hugo, Pelican and Jeykyll.
-- Uses a template engine Tera, which will be familiar in syntax from my time using Jinja2 and Django.
+- It uses Tera as its template engine, which has a syntax similar to Jinja2 and Django templates. This familiarity is advantageous, as I have prior experience with both Jinja2 and Django, reducing the learning curve for creating and managing blog templates.
 - Content written in CommonMark (expanded with some Github flavour via [`pulldown-cmark`][5]).
 
 ### Why Github Pages?
