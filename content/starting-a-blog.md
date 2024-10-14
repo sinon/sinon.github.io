@@ -24,7 +24,8 @@ In this post, I'll discuss my motivations for starting a blog and briefly explai
 [Always be quitting][1] when it comes to documenting various aspects of my role.
 The problem with this is that even when it's a generic explainer or How To this information is lost to me once I move roles.
 - **Personal knowledge management**: Memory is imperfect, and trying to find the same piece of information
-you've already encountered can be frustrating. A blog can serve as a personal wiki or Zettelkasten system,
+you've already encountered can be frustrating, even in this brave new world of LLMs.
+A blog can serve as a personal wiki or Zettelkasten system,
 helping me organize and retrieve information more efficiently.
 - **[Rubber duck debugging][2]**[^1]: This technique for solving problems when
 combined with posting the updates in Slack or Teams naturally leads to a set of useful
