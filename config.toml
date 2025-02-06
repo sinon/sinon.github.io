@@ -7,19 +7,12 @@ compile_sass = false
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
-
-# Blocked by: https://github.com/getzola/after-dark/pull/43
-# Alternatively downgrade to zola<0.19
-# generate_feeds = true
-# feed_filenames = ["rss.xml"]
+generate_feeds = true
+feed_filenames = ["rss.xml"]
 
 theme = "after-dark"
 
-taxonomies = [
-    # You can enable/disable RSS
-    {name = "categories", feed = true},
-    {name = "tags", feed = true},
-]
+taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
 # Whether to do syntax highlighting
@@ -30,13 +23,14 @@ render_emoji = true
 
 [extra]
 author = "Rob Hand"
+codeblock = true
 after_dark_menu = [
   { name = "Home", url = "$BASE_URL" },
-  { name = "Categories", url = "$BASE_URL/categories" },
+  { name = "Tags", url = "$BASE_URL/tags" },
   { name = "Source", url = "https://github.com/Sinon/sinon.github.io" },
   { name = "GitHub", url = "https://github.com/Sinon" },
   # Blocked by: https://github.com/getzola/after-dark/pull/43
   # Alternatively downgrade to zola<0.19
-  # { name = "RSS", url = "$BASE_URL/rss.xml" },
+  { name = "RSS", url = "$BASE_URL/rss.xml" },
 ]
 after_dark_title = "Rob's Blog | Python • Rust • Ramblings?"
