@@ -1,8 +1,8 @@
-## Rob's Blog
+# Rob's Blog
 
 Personal blog powered by [Zola](https://github.com/getzola/zola).
 
-### Running Locally
+## Running Locally
 
 ```sh
 zola serve
