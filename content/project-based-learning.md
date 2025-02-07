@@ -19,9 +19,9 @@ Learning a new programming language is like building muscle - sporadic gym visit
 
 ## Why?
 
-Always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow's annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.
+I always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow's annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.
 
-Modern systems programming demands better tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. For a Python developer like myself, it offers a path to writing performant, safe code without sacrificing productivity.
+Modern programming languages demands better tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. For a Python developer like myself, it offers a path to writing performant, safe code without sacrificing productivity.
 
 ## Previous Learning Attempts
 
@@ -73,11 +73,26 @@ What sets CodeCrafters apart is its focus on real-world implementations rather t
 The projects I worked on via CodeCrafters are:
 
 - [`loxide`][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17]. Which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
-- [`rsh][18] - A bare bones POXIS shell.
+- [`rsh][18] - A POSIX shell implementation that gave me a small peak behind the curtain to the complexity behind the humble shell.
+
+The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an Intrepreter forces you to understand both Rust and Lexing, Parsing, Evalutation etc. Automated tests provide instant feedback, maintaining momentum.
 
 ## Conclusion and Next Steps
 
 Looking back on the last 3-4 months I am frankly shocked by how productive I have been, in that span of time I have done more development work for my own pleasure than I had in the nearly 10 years preceding it.
+
+The last 3-4 months have been unexpectedly productive - more personal development work than in the previous decade. Project-based learning worked because:
+
+1. Clear end goals keep you motivated
+2. Real-world projects force you to write idiomatic code
+3. Test suites provide immediate feedback
+4. Building actual tools is more engaging than solving puzzles
+
+Next steps:
+
+- Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters is not complete and stops after implementing functions.
+- Contribute to some OSS project in the Rust ecosystem.
+- Build a non-trivial web service in Axum.
 
 ## Footnotes
 
