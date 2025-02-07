@@ -1,5 +1,5 @@
 +++
-title = "Project based learning"
+title = "Project-Based Learning: The Method That Made Rust Click"
 date = 2025-02-07
 
 [taxonomies]
@@ -19,7 +19,7 @@ Learning a new programming language is like building muscle - sporadic gym visit
 
 I always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow's annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.
 
-Modern programming languages demands better tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. For a Python developer like myself, it offers a path to writing performant, safe code without sacrificing productivity.
+Modern programming languages demand better tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. As a Python developer, Rust offers me a way to write performant, safe code without sacrificing productivity.
 
 ## Previous Learning Attempts
 
@@ -36,15 +36,15 @@ Pre-1.0 (2014): A brief experiment that ended quickly after writing a few basic 
 
 Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I soon began to spend more time learning AoC problem-solving patterns than Rust idioms.
 
-2024: Started preprating for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.
+2024: Started preparing for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.
 
 ## Project based learning
 
-It was around this time when trying to form the habit of writing Rust with the aim of working through AoC2024 that I can across the suggestion of [PNGme][1] in a response to a similar request for guidance from someone learning Rust in [r/rust][4]
+It was around this time when trying to form the habit of writing Rust with the aim of working through AoC2024 that I came across the suggestion of [PNGme][1] in a response to a similar request for guidance from someone learning Rust in [r/rust][4]
 
 ### PNGme
 
-PNGme bills itself as "An Intermediate Rust Project". It comprsises of a series of Chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or secrets messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.
+PNGme bills itself as "An Intermediate Rust Project". It comprsises a series of Chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or reading secret messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.
 
 [My work][5] on this has expanded as the simple library has become a test bed to experiment with other parts of the Rust ecosystem such as:
 
@@ -57,10 +57,10 @@ PNGme bills itself as "An Intermediate Rust Project". It comprsises of a series 
 
 Upon finishing up PNGme the author gives some suggestions of other projects based learning resources, one of which was [Programming Projects for Advanced Beginners][3] a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.
 
-These led nicely into experimenting with [ratatui][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
+This led nicely into experimenting with [ratatui][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
 
-- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This resulted in a case of "the interest is smaller than you think". One of the maintainers of ratatui (Orhun Parmaksız) filed an issue on my repo, asking for some changes so they could use it in a website they were building. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
-- A functionality unfinished [snake][15] game.
+- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This resulted in a case of "the interest is smaller than you think". A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs.. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
+- A unfinished [snake][15] game.
 
 ### CodeCrafters
 
@@ -73,7 +73,7 @@ The projects I worked on via CodeCrafters are:
 - [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17], which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
 - [rsh][18] - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.
 
-The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an Intrepreter forces you to understand both Rust and Lexing, Parsing, Evaluation etc. Automated tests provide instant feedback, maintaining momentum.
+The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an interpreter forces you to understand Rust, lexing, parsing, and evaluation. Automated tests provide instant feedback, maintaining momentum.
 
 ## Conclusion and Next Steps
 
