@@ -46,7 +46,7 @@ It was around this time when trying to form the habit of writing Rust with the a
 
 PNGme bills itself as "An Intermediate Rust Project". It comprsises of a series of Chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or secrets messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.
 
-[My work][5] on this has expanded as the simple library has become a test bed to experiement with other parts of the Rust ecosystem such as:
+[My work][5] on this has expanded as the simple library has become a test bed to experiment with other parts of the Rust ecosystem such as:
 
 - Python to Rust binding with [pyO3][6] by building a [PNGme python library][7] from the Rust library.
 - Experimenting with GUI toolkit [eframe][8] using [egui][9] by building a [GUI interface for PNGme][10].
@@ -73,7 +73,7 @@ The projects I worked on via CodeCrafters are:
 - [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17], which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
 - [rsh][18] - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.
 
-The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an Intrepreter forces you to understand both Rust and Lexing, Parsing, Evalutation etc. Automated tests provide instant feedback, maintaining momentum.
+The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an Intrepreter forces you to understand both Rust and Lexing, Parsing, Evaluation etc. Automated tests provide instant feedback, maintaining momentum.
 
 ## Conclusion and Next Steps
 
