@@ -1,7 +1,6 @@
 +++
 title = "Project based learning"
 date = 2025-02-07
-draft = true
 
 [taxonomies]
 tags = ["rust", "learning"]
@@ -30,12 +29,12 @@ Pre-1.0 (2014): A brief experiment that ended quickly after writing a few basic 
 
 2020: My wife gifted me "The Rust Programming Language" book after overhearing my interest in Rust podcasts (particularly Rustacean Station). Finished the book and completed various small contained code examples but it was never put in to practice and started to fade.
 
-2023: Two more serious attempts:
+2023: Two slightly more serious attempts:
 
-- Explored Rust + Kafka integration for a work proposal
-- Started "Zero to Production in Rust" in October
+- Explored Rust + Kafka integration for a potential work proposal
+- Started on "Zero to Production in Rust" in October, though as I followed along with the book I was also [re-implementing it in Axum][19] instead of Actix Web which the book uses.
 
-Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily, I soon began to spend more time learning AoC problem-solving patterns than Rust idioms.
+Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I soon began to spend more time learning AoC problem-solving patterns than Rust idioms.
 
 2024: Started preprating for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.
 
@@ -47,7 +46,7 @@ It was around this time when trying to form the habit of writing Rust with the a
 
 PNGme bills itself as "An Intermediate Rust Project". It comprsises of a series of Chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or secrets messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.
 
-[My work][5] on this has expanded as the simple library has become a test bed to experiement with other parts of the Rust ecosystem such as
+[My work][5] on this has expanded as the simple library has become a test bed to experiement with other parts of the Rust ecosystem such as:
 
 - Python to Rust binding with [pyO3][6] by building a [PNGme python library][7] from the Rust library.
 - Experimenting with GUI toolkit [eframe][8] using [egui][9] by building a [GUI interface for PNGme][10].
@@ -60,7 +59,7 @@ Upon finishing up PNGme the author gives some suggestions of other projects base
 
 These led nicely into experimenting with [ratatui][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
 
-- [gridlife][13]: A library and TUI CLI for simulating Conways Game of Life automatons. Which in some "the interest is smaller than you think", one of the maintainers of ratatui (Orhun Parmaksız) filed an issue on my repo, asking for some changes so they could use it in a website they were building. The reason I used ratatui in the first place was because of watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
+- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This resulted in a case of "the interest is smaller than you think". One of the maintainers of ratatui (Orhun Parmaksız) filed an issue on my repo, asking for some changes so they could use it in a website they were building. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
 - A functionality unfinished [snake][15] game.
 
 ### CodeCrafters
@@ -71,8 +70,8 @@ What sets CodeCrafters apart is its focus on real-world implementations rather t
 
 The projects I worked on via CodeCrafters are:
 
-- [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17]. Which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
-- [rsh][18] - A POSIX shell implementation that gave me a small peak behind the curtain to the complexity behind the humble shell.
+- [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17], which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
+- [rsh][18] - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.
 
 The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an Intrepreter forces you to understand both Rust and Lexing, Parsing, Evalutation etc. Automated tests provide instant feedback, maintaining momentum.
 
@@ -110,3 +109,4 @@ Next steps:
 [16]: https://github.com/sinon/loxide
 [17]: https://craftinginterpreters.com/
 [18]: https://github.com/sinon/rsh
+[19]: https://github.com/sinon/z2p-axum
