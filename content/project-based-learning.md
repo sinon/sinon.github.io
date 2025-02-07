@@ -13,7 +13,6 @@ tags = ["rust", "learning"]
   - [Pngme](#pngme)
   - [CodeCrafters](#pngme)
 - [Conclusion and Next Steps](#conclusion-and-next-steps)
-- [Footnotes](#footnotes)
 
 Learning a new programming language is like building muscle - sporadic gym visits won't get you far. After years of starting and abandoning Rust, I finally found a learning approach that sticks: hands-on projects that force you to write real code. This post traces my journey from tutorial hell to actually building things, and shares what worked (and what didn't) in hopes of helping others avoid the same pitfalls.
 
@@ -50,8 +49,8 @@ PNGme bills itself as "An Intermediate Rust Project". It comprsises of a series 
 
 [My work][5] on this has expanded as the simple library has become a test bed to experiement with other parts of the Rust ecosystem such as
 
-- Python to Rust binding with pyO3[6] by building a [PNGme python library][7] from the Rust library.
-- Experimenting with GUI toolkit [`eframe`][8] using [`egui`][9] by building a [GUI interface for PNGme][10].
+- Python to Rust binding with [pyO3][6] by building a [PNGme python library][7] from the Rust library.
+- Experimenting with GUI toolkit [eframe][8] using [egui][9] by building a [GUI interface for PNGme][10].
 - A [html frontend for PNGme][11] using Maud and Axum.
 - Splitting a codebase into various crates in a single workspace.
 
@@ -59,9 +58,9 @@ PNGme bills itself as "An Intermediate Rust Project". It comprsises of a series 
 
 Upon finishing up PNGme the author gives some suggestions of other projects based learning resources, one of which was [Programming Projects for Advanced Beginners][3] a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.
 
-These led nicely into experimenting with [`ratatui`][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
+These led nicely into experimenting with [ratatui][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
 
-- [`gridlife`][13]: A library and TUI CLI for simulating Conways Game of Life automatons. Which in some "the interest is smaller than you think", one of the maintainers of `ratatui` (Orhun Parmaksız) filed an issue on my repo, asking for some changes so they could use it in a website they were building. The reason I used `ratatui` in the first place was because of watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to `crates.io`.
+- [gridlife][13]: A library and TUI CLI for simulating Conways Game of Life automatons. Which in some "the interest is smaller than you think", one of the maintainers of ratatui (Orhun Parmaksız) filed an issue on my repo, asking for some changes so they could use it in a website they were building. The reason I used ratatui in the first place was because of watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
 - A functionality unfinished [snake][15] game.
 
 ### CodeCrafters
@@ -72,16 +71,14 @@ What sets CodeCrafters apart is its focus on real-world implementations rather t
 
 The projects I worked on via CodeCrafters are:
 
-- [`loxide`][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17]. Which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
-- [`rsh][18] - A POSIX shell implementation that gave me a small peak behind the curtain to the complexity behind the humble shell.
+- [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17]. Which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
+- [rsh][18] - A POSIX shell implementation that gave me a small peak behind the curtain to the complexity behind the humble shell.
 
 The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an Intrepreter forces you to understand both Rust and Lexing, Parsing, Evalutation etc. Automated tests provide instant feedback, maintaining momentum.
 
 ## Conclusion and Next Steps
 
 Looking back on the last 3-4 months I am frankly shocked by how productive I have been, in that span of time I have done more development work for my own pleasure than I had in the nearly 10 years preceding it.
-
-The last 3-4 months have been unexpectedly productive - more personal development work than in the previous decade. Project-based learning worked because:
 
 1. Clear end goals keep you motivated
 2. Real-world projects force you to write idiomatic code
@@ -93,8 +90,6 @@ Next steps:
 - Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters is not complete and stops after implementing functions.
 - Contribute to some OSS project in the Rust ecosystem.
 - Build a non-trivial web service in Axum.
-
-## Footnotes
 
 <!-- Reference links --->
 [1]: https://jrdngr.github.io/pngme_book/
