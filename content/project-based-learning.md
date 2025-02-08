@@ -1,5 +1,5 @@
 +++
-title = "Project-Based Learning: The Method That Made Rust Click"
+title = "Project-Based Learning: The Method That Made Rust Finally Click"
 date = 2025-02-07
 
 [taxonomies]
@@ -9,7 +9,7 @@ tags = ["rust", "learning"]
 - [Why?](#why)
 - [Previous Learning Attempts](#previous-learning-attempts)
 - [Project based learning](#project-based-learning)
-  - [Pngme](#pngme)
+  - [PNGme](#pngme)
   - [CodeCrafters](#pngme)
 - [Conclusion and Next Steps](#conclusion-and-next-steps)
 
@@ -32,9 +32,9 @@ Pre-1.0 (2014): A brief experiment that ended quickly after writing a few basic 
 2023: Two slightly more serious attempts:
 
 - Explored Rust + Kafka integration for a potential work proposal
-- Started on "Zero to Production in Rust" in October, though as I followed along with the book I was also [re-implementing it in Axum][19] instead of Actix Web which the book uses.
+- Started on [Zero to Production in Rust][20] in October, though as I followed along with the book I was also [re-implementing it in Axum][19] instead of Actix Web which the book uses. This was an improvement as the topic of the book aligned nicely with my day job as a Backend focussed engineer but I found I was learning more about Axum than making strides with my Rust fundamentals.
 
-Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I soon began to spend more time learning AoC problem-solving patterns than Rust idioms.
+Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I ended up spending more time on AoC problem-solving patterns than Rust idioms.
 
 2024: Started preparing for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.
 
@@ -44,7 +44,7 @@ It was around this time when trying to form the habit of writing Rust with the a
 
 ### PNGme
 
-PNGme bills itself as "An Intermediate Rust Project". It comprsises a series of Chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or reading secret messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.
+PNGme bills itself as "An Intermediate Rust Project". It comprises a series of chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or reading secret messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.
 
 [My work][5] on this has expanded as the simple library has become a test bed to experiment with other parts of the Rust ecosystem such as:
 
@@ -55,11 +55,11 @@ PNGme bills itself as "An Intermediate Rust Project". It comprsises a series of 
 
 ### Programming Projects for Advanced Beginners
 
-Upon finishing up PNGme the author gives some suggestions of other projects based learning resources, one of which was [Programming Projects for Advanced Beginners][3] a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.
+Upon finishing up PNGme the author gives some suggestions of other projects based learning resources. One was [Programming Projects for Advanced Beginners][3], a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.
 
 This led nicely into experimenting with [ratatui][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
 
-- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This resulted in a case of "the interest is smaller than you think". A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs.. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
+- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This was a classic case of "the interest is smaller than you think". A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs.. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
 - A unfinished [snake][15] game.
 
 ### CodeCrafters
@@ -86,7 +86,7 @@ Looking back on the last 3-4 months I am frankly shocked by how productive I hav
 
 Next steps:
 
-- Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters is not complete and stops after implementing functions.
+- Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters Inpreter project is not complete and stops after implementing functions.
 - Contribute to some OSS project in the Rust ecosystem.
 - Build a non-trivial web service in Axum.
 
@@ -110,3 +110,4 @@ Next steps:
 [17]: https://craftinginterpreters.com/
 [18]: https://github.com/sinon/rsh
 [19]: https://github.com/sinon/z2p-axum
+[20]: https://www.zero2prod.com
