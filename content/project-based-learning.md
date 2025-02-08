@@ -19,7 +19,7 @@ Learning a new programming language is like building muscle - sporadic gym visit
 
 I always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow's annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.
 
-Modern programming languages demand better tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. As a Python developer, Rust offers me a way to write performant, safe code without sacrificing productivity.
+Modern programming languages require robust tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. As a Python developer, Rust offers me a way to write performant, safe code without sacrificing productivity.
 
 ## Previous Learning Attempts
 
@@ -70,7 +70,7 @@ What sets CodeCrafters apart is its focus on real-world implementations rather t
 
 The projects I worked on via CodeCrafters are:
 
-- [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom for his excellent (and free) book [Crafting Interpreter][17], which has given me a new appreciation for my 4 years studying Computer Science and wishing as a new engineer all those years ago I had some work projects that would have slowed down the atrophy of all that theory that I never put into practice to make it stick.
+- [loxide][16] - An implementation of an interpreter for the Lox language by Robert Nystrom from his excellent (and free) book [Crafting Interpreter][17]. This has given me a new appreciation for my 4 years studying Computer Science, with some regret that my early roles as a software engineer didn't force me to make better use of what I learned before it started to atrophy.
 - [rsh][18] - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.
 
 The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an interpreter forces you to understand Rust, lexing, parsing, and evaluation. Automated tests provide instant feedback, maintaining momentum.
