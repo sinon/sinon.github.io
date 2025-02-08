@@ -29,8 +29,7 @@ after_dark_menu = [
   { name = "Tags", url = "$BASE_URL/tags" },
   { name = "Source", url = "https://github.com/Sinon/sinon.github.io" },
   { name = "GitHub", url = "https://github.com/Sinon" },
-  # Blocked by: https://github.com/getzola/after-dark/pull/43
-  # Alternatively downgrade to zola<0.19
+  { name = "CV", url = "https://raw.githubusercontent.com/sinon/CV/main/cv.pdf" },
   { name = "RSS", url = "$BASE_URL/rss.xml" },
 ]
 after_dark_title = "Rob's Blog | Python • Rust • Ramblings?"
