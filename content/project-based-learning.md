@@ -59,7 +59,7 @@ Upon finishing up PNGme the author gives some suggestions of other projects base
 
 This led nicely into experimenting with [ratatui][12] a library designed to help you to build Text User Interfaces (TUIs) resulting in:
 
-- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This was a classic case of "the interest is smaller than you think". A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs.. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
+- [gridlife][13]: A library and TUI CLI for simulating Conway's Game of Life automatons. This was a classic case of "the interest is smaller than you think". A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs. The reason I had used ratatui in the first place was due to watching [a talk Orhun gave at EuroRust][14]. This also gave me the nudge I needed to publish the library to [crates.io](https://crates.io).
 - A unfinished [snake][15] game.
 
 ### CodeCrafters
@@ -86,7 +86,7 @@ Looking back on the last 3-4 months I am frankly shocked by how productive I hav
 
 Next steps:
 
-- Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters Inpreter project is not complete and stops after implementing functions.
+- Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters Interpreter project is not complete and stops after implementing functions.
 - Contribute to some OSS project in the Rust ecosystem.
 - Build a non-trivial web service in Axum.
 
