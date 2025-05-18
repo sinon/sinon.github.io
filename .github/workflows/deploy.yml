@@ -12,17 +12,24 @@ on:
       - closed
 
 concurrency: preview-${{ github.ref }}
+permissions: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
     if: github.ref != 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Build only
         if: github.event.action != 'closed'
-        uses: shalzz/zola-deploy-action@v0.19.2
+        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20
         env:
           BUILD_DIR: .
           BUILD_ONLY: true
@@ -30,10 +37,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+        uses: rossjrw/pr-preview-action@2fb559e4766555e23d07b73d313fe97c4f8c3cfe # v1.6.1
         with:
           source-dir: ./public/
-          custom-url: sinon.github.io
+          pages-base-url: sinon.github.io
 
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -41,8 +48,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Build and deploy
-        uses: shalzz/zola-deploy-action@v0.19.2
+        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20
         env:
           BUILD_DIR: .
           PAGES_BRANCH: gh-pages
