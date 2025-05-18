@@ -20,6 +20,7 @@ jobs:
     permissions:
       id-token: write
       contents: write
+      pull-requests: write
     if: github.ref != 'refs/heads/main'
     steps:
       - name: Checkout
