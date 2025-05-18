@@ -1,6 +1,7 @@
 # The URL the site will be built for
 base_url = "https://sinon.github.io"
 default_language = "en"
+title = "Rob's Blog | Python • Rust • Ramblings?"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
