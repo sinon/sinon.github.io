@@ -28,8 +28,8 @@ codeblock = true
 after_dark_menu = [
   { name = "Home", url = "$BASE_URL" },
   { name = "Tags", url = "$BASE_URL/tags" },
-  { name = "Source", url = "https://github.com/Sinon/sinon.github.io" },
-  { name = "GitHub", url = "https://github.com/Sinon" },
+  { name = "Source", url = "https://github.com/sinon/sinon.github.io" },
+  { name = "GitHub", url = "https://github.com/sinon" },
   { name = "CV", url = "https://raw.githubusercontent.com/sinon/CV/main/cv.pdf" },
   { name = "RSS", url = "$BASE_URL/rss.xml" },
 ]
