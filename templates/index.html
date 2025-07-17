@@ -1,4 +1,12 @@
 {% extends "after-dark/templates/index.html" %}
 {% block extra_head %}
 <meta name="google-site-verification" content="-ht4RJntETG9MGDTzs9S26SvB4bY0x6xZVleu7oziUs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{config.base_url | safe}}/" />
+<meta property="og:site_name" content="{{ config.title }}" />
+
+{% block meta_content %}
+<meta property="og:title" content="{{ config.title | safe}}" />
+{% endblock meta_content %}
+
 {% endblock %}

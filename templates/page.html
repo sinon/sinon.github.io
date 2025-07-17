@@ -4,3 +4,15 @@
     theme="github-dark" crossorigin="anonymous" async>
     </script>
 {% endblock %}
+
+{% block meta_content %}
+{% if page.title %}
+<meta property="og:title" content="{{page.title}} —&nbsp;{{config.title}}" />
+{% else %}
+<meta property="og:title" content="{{config.title}}" />
+{% endif %}
+{% if page.description %}
+<meta name="description" content="{{ page.description | safe }}" />
+<meta property="og:description" content="{{ page.description | safe }}" />
+{% endif %}
+{% endblock meta_content %}
