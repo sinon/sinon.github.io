@@ -6,7 +6,12 @@
 <meta property="og:site_name" content="{{ config.title }}" />
 
 {% block meta_content %}
-<meta property="og:title" content="{{ config.title | safe}}" />
+<meta property="og:description" content="{{ config.title }}" />
+<meta property="og:title" content="{{ config.title }}" />
+<!-- TODO:
+  <meta property="og:image" content="your value" />
+  <meta property="og:logo" content="your value" /> 
+  -->
 {% endblock meta_content %}
 
 {% endblock %}
