@@ -1,6 +1,7 @@
 +++
 title = "Project-Based Learning: The Method That Made Rust Finally Click"
 date = 2025-02-07
+description = "How hands-on projects finally helped me learn Rust after years of false starts."
 
 [taxonomies]
 tags = ["rust", "learning"]
