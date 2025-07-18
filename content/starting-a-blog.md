@@ -1,6 +1,7 @@
 +++
 title = "Stepping Out of My Comfort Zone: A Backend Engineer's Journey into Blogging"
 date = 2024-10-13
+description = "Why I started blogging and my experience setting up Zola with GitHub Pages."
 
 [taxonomies]
 tags = ["blogging", "zola"]

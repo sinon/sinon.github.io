@@ -1,6 +1,7 @@
 +++
 title = "Bridging Python & Rust: A Walkthrough of using Py03"
 date = 2025-05-18
+description = "A practical guide to exposing Rust functions to Python using PyO3."
 
 [taxonomies]
 tags = ["rust", "python", "py03"]
