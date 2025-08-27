@@ -27,6 +27,8 @@ author = "Rob Hand"
 codeblock = true
 after_dark_menu = [
   { name = "Home", url = "$BASE_URL" },
+  { name = "About", url = "$BASE_URL/about/" },
+  { name = "Now", url = "$BASE_URL/now/" },
   { name = "Tags", url = "$BASE_URL/tags" },
   { name = "Source", url = "https://github.com/sinon/sinon.github.io" },
   { name = "GitHub", url = "https://github.com/sinon" },

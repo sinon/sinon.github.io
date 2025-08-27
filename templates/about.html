@@ -1,0 +1,31 @@
+{% extends "after-dark/templates/page.html" %}
+
+{% block content %}
+{% block header %}
+{{ super() }}
+{% endblock header %}
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <div itemprop="articleBody">
+        {{ page.content | safe }}
+    </div>
+</article>
+
+{% endblock content %}
+
+{% block meta_content %}
+{% if current_path %}
+<meta property="og:url" content="{{config.base_url}}{{current_path | safe}}" />
+{% endif %}
+{% if page.title %}
+<meta property="og:title" content="{{page.title}} —&nbsp;{{config.title}}" />
+{% else %}
+<meta property="og:title" content="{{config.title}}" />
+{% endif %}
+{% if page.description %}
+<meta property="og:description" content="{{ page.description | safe }}" />
+{% endif %}
+{% if page.taxonomies.tags %}
+<meta property="og:article:tag" content="{{page.taxonomies.tags | join(sep=',')}}" />
+{% endif %}
+{% endblock meta_content %}
