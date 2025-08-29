@@ -81,12 +81,20 @@ I've also included a local build of `ty` for two main reasons:
 
 ## Summary
 
-| Type Checker                                    | Test Case Passes | Test Case Fails | Test Case Unknown status | False Positives | False Negatives |
-|-------------------------------------------------|------------------|-----------------|--------------------------|-----------------|-----------------|
-| zuban 0.0.20                                    | 96               | 38              | 5                        | 149             | 92              |
-| ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)        | 20               | 0               | 119                      | 371             | 603             |
-| Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) | 20               | 0               | 119                      | 370             | 590             |
-| pyrefly 0.30.0                                  | 81               | 0               | 58                       | 100             | 187             |
+__Generated 29/08/2025__
+
+> NOTE
+>
+> The following section is slightly unfair, all of these tools are in alpha and only one of these tools (Zuban) has opted into the Conformance suite.
+>
+> That being said even though `ty` is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.
+
+|                   Type Checker                  | Total Test Case Passes | Total Test Case Partial | Total False Positives | Total False Negatives | False Negatives |
+|:-----------------------------------------------:|:----------------------:|:-----------------------:|:---------------------:|:---------------------:|-----------------|
+|                   zuban 0.0.20                  | 97                     | 42                      | 152                   | 89                    | 92              |
+|     ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)    | 20                     | 119                     | 371                   | 603                   | 603             |
+| Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) | 20                     | 119                     | 370                   | 590                   | 590             |
+|                  pyrefly 0.30.0                 | 81                     | 58                      | 100                   | 187                   | 187             |
 
 ## Review of progress
 
