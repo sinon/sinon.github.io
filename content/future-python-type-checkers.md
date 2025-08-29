@@ -1,8 +1,7 @@
 +++
-title = "Ty versus Pyrefly versus Zuban: Reviewing the future of Python type checkers"
+title = "Ty versus Pyrefly versus Zuban: Reviewing the future of Python type checkers (Draft)"
 date = 2025-08-29
 description = "A comparison of three new Rust-based Python type checkers: Astral's ty, Meta's pyrefly, and David Halter's zuban"
-draft = true
 
 [taxonomies]
 tags = ["rust", "python", "type-checkers", "typing"]
