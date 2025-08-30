@@ -5,6 +5,6 @@ date = 2025-08-30
 tags = ["til"]
 +++
 
-[Simon Willison](https://simonwillison.net/) co-creator of Django, profilific blogger and general font of knowledge on how pelicans ride biycles in this brave new LLM world, has a section of his blog devoted to TILs.
+[Simon Willison](https://simonwillison.net/) co-creator of Django, prolific blogger and general font of knowledge on how pelicans ride bicycles in this brave new LLM world, has a section of his blog devoted to TILs.
 
 To help make writing a more regular habit I am ~~copying~~ stealing this.
