@@ -1,6 +1,7 @@
 +++
 title = "Bridging Python & Rust: A Walkthrough of using Py03"
 date = 2025-05-18
+updated = 2025-08-30
 description = "A practical guide to exposing Rust functions to Python using PyO3."
 
 [taxonomies]
@@ -17,7 +18,7 @@ tags = ["rust", "python", "py03"]
 
 # Bridging Python and Rust: A Practical Guide with PyO3
 
-Sometimes Python just isn't fast enough, or you want to reuse some Rust code without rewriting it. [PyO3](https://pyo3.rs) makes it surprisingly easy to call Rust from Python (or less commonly vice-versa). Here’s how I created [pngme-python][1] crate, to expose my already existinv [pngme][2] Rust crate.
+Sometimes Python just isn't fast enough, or you want to reuse some Rust code without rewriting it. [PyO3](https://pyo3.rs) makes it surprisingly easy to call Rust from Python (or less commonly vice-versa). Here’s how I created [pngme-python][1] crate, to expose my already existing [pngme][2] Rust crate as a python library.
 
 ## Project Structure
 
@@ -114,13 +115,13 @@ mod pngme_python {
 
 The key parts of this implementation:
 
-- The `#[pymodule]` macro creates a Python module
-- Each `#[pyfunction]` exposes a Rust function to Python
-- Rust error types are mapped to appropriate Python exceptions
+- The `#[pymodule]` macro creates a Python module from the Rust module it encloses.
+- Each `#[pyfunction]` within the Rust module adds a Rust function to Python the `#[pymodule]`.
+- Each Rust error type must be handled and mapped to the appropriate Python exceptions.
 
 ## Step 2: Building and Packaging
 
-[Maturin](https://github.com/PyO3/maturin)  handles compiling the Rust code and packaging it as a Python wheel. Two configuration files control this process:
+[Maturin](https://github.com/PyO3/maturin) handles compiling the Rust code and packaging it as a Python wheel. Two configuration files control this process:
 
 **Cargo.toml**
 ```toml
@@ -157,7 +158,6 @@ features = ["pyo3/extension-module"]
 Building is as simple as:
 
 ```bash
-
 maturin develop
 ```
 
@@ -183,7 +183,7 @@ def test_pngme_encode():
 
 ## Step 4: Handling Errors
 
-PyO3 lets you map Rust errors to Python exceptions, so Python users get idiomatic error messages:
+PyO3 lets you map Rust errors to Python exceptions, so Python users get idiomatic error messages as shown below:
 
 ```python
 import pytest
