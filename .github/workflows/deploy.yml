@@ -29,7 +29,7 @@ jobs:
           persist-credentials: false
       - name: Build only
         if: github.event.action != 'closed'
-        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20
+        uses: shalzz/zola-deploy-action@90cd842959b82e0c012601be18ae249d6cdb1669 # v0.21
         env:
           BUILD_DIR: .
           BUILD_ONLY: true
@@ -54,7 +54,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Build and deploy
-        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20
+        uses: shalzz/zola-deploy-action@90cd842959b82e0c012601be18ae249d6cdb1669 # v0.21
         env:
           BUILD_DIR: .
           PAGES_BRANCH: gh-pages
