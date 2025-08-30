@@ -1,1 +1,14 @@
 {% extends "index.html" %}
+
+{% block content %}
+<style>
+    .tils-section .muted svg.i-clock,
+    .tils-section .muted svg.i-clock+span {
+        display: none !important;
+    }
+</style>
+
+<div class="section-content{% if section.title == 'TILs' or 'til' in section.slug %} tils-section{% endif %}">
+    {{ super() }}
+</div>
+{% endblock %}
