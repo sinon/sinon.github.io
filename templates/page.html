@@ -1,4 +1,17 @@
 {% extends "after-dark/templates/page.html" %}
+
+{% block content %}
+{% if 'tils' in page.path %}
+<style>
+    .muted svg.i-clock,
+    .muted svg.i-clock+span {
+        display: none !important;
+    }
+</style>
+{% endif %}
+{{ super() }}
+{% endblock %}
+
 {% block extra_footer %}
 <script src="https://utteranc.es/client.js" repo="sinon/sinon.github.io" issue-term="url" label="comments"
     theme="github-dark" crossorigin="anonymous" async>
