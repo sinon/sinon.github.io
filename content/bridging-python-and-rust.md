@@ -35,6 +35,7 @@ pngme-python/
 ├── Cargo.toml
 ├── pyproject.toml
 ├── README.md
+
 ```
 
 - **pngme/src/lib.rs**: The original Rust code with PNG manipulation functionality, that we want to expose as a Python library
@@ -158,6 +159,7 @@ features = ["pyo3/extension-module"]
 Building is as simple as:
 
 ```bash
+
 maturin develop
 ```
 
@@ -186,6 +188,7 @@ def test_pngme_encode():
 PyO3 lets you map Rust errors to Python exceptions, so Python users get idiomatic error messages as shown below:
 
 ```python
+
 import pytest
 
 def test_pngme_unknown_file():
