@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - now</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/now/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Wed, 27 Aug 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>TIL: Now page</title>
+          <pubDate>Wed, 27 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-now-page/</link>
+          <guid>https://sinon.github.io/tils/til-now-page/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-now-page/">&lt;p&gt;Added a &lt;a href=&quot;..&#x2F;..&#x2F;now&quot;&gt;Now&lt;&#x2F;a&gt; page to blog based on &lt;a href=&quot;https:&#x2F;&#x2F;nownownow.com&#x2F;about&quot;&gt;nownownow&lt;&#x2F;a&gt;. Since I don&#x27;t post on social media this seemed like a nice way to share what I am up to at the moment (to my many many readers... &lt;em&gt;&lt;strong&gt;crickets&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;)&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

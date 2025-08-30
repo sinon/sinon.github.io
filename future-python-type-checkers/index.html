@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  
+  <meta name="description" content="A comparison of three new Rust-based Python type checkers: Astral&#x27;s ty, Meta&#x27;s pyrefly, and David Halter&#x27;s zuban" />
+  
+  
+
+  <title>
+    
+    Ty versus Pyrefly versus Zuban: Reviewing the future of Python type checkers (Draft)
+    
+</title>
+  <link rel="alternate" type="application/rss+xml" title="Rob&#x27;s Blog | Python • Rust • Ramblings? RSS Feed" href="https://sinon.github.io/rss.xml" />
+
+  
+  <link rel="stylesheet" href="https://sinon.github.io/site.css">
+  
+
+  
+<meta name="google-site-verification" content="-ht4RJntETG9MGDTzs9S26SvB4bY0x6xZVleu7oziUs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sinon.github.io/" />
+<meta property="og:site_name" content="Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+
+<meta property="og:url" content="https:&#x2F;&#x2F;sinon.github.io/future-python-type-checkers/" />
+
+
+<meta property="og:title" content="Ty versus Pyrefly versus Zuban: Reviewing the future of Python type checkers (Draft) —&nbsp;Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+<meta property="og:description" content="A comparison of three new Rust-based Python type checkers: Astral's ty, Meta's pyrefly, and David Halter's zuban" />
+
+
+<meta property="og:article:tag" content="rust,python,type-checkers,typing" />
+
+
+
+
+</head>
+
+<body class="hack dark main container">
+  
+
+
+    
+        
+  
+  <header class="nav-header">
+    <nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="navbar">
+      <div class="nav-links">
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io">
+          <span itemprop="name">Home</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/about/">
+          <span itemprop="name">About</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/now/">
+          <span itemprop="name">Now</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tils/">
+          <span itemprop="name">TILs</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tags">
+          <span itemprop="name">Tags</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon/sinon.github.io">
+          <span itemprop="name">Source</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon">
+          <span itemprop="name">GitHub</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://raw.githubusercontent.com/sinon/CV/main/cv.pdf">
+          <span itemprop="name">CV</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/rss.xml">
+          <span itemprop="name">RSS</span></a>
+        
+      </div>
+    </nav>
+    
+
+  </header>
+  
+  
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Ty versus Pyrefly versus Zuban: Reviewing the future of Python type checkers (Draft)</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>6 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-08-29
+</span>
+    </header>
+    <div itemprop="articleBody">
+      <h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#introduction">Introduction</a>
+<ul>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#ty-from-astral"><code>ty</code> from Astral</a></li>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#pyrefly-from-meta"><code>pyrefly</code> from Meta</a></li>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#zuban-from-david-halter"><code>zuban</code> from David Halter</a></li>
+</ul>
+</li>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#typing-conformance-suite-analysis">Typing Conformance Suite Analysis</a>
+<ul>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#summary">Summary</a></li>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#review-of-progress">Review of progress</a></li>
+</ul>
+</li>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#other-resources-to-learn-more">Other resources to learn more</a></li>
+<li><a href="https://sinon.github.io/future-python-type-checkers/#footnotes">Footnotes</a></li>
+</ul>
+<h1 id="introduction">Introduction</h1>
+<p>The Python type checking landscape is experiencing a particularly active phase of innovation in 2025. This year has witnessed the emergence of not one, not two, but <strong>three</strong> new Python type checking tools, each backed by significant pedigree and resources. While these tools have slightly different goals and philosophies, they share a common foundation: all are built in Rust with performance as a core design principle.</p>
+<p>This continued shift toward Rust-based implementations represents a significant evolution in the Python tooling ecosystem, promising faster type checking, better IDE integration, and improved developer experience for large codebases.</p>
+<h2 id="ty-from-astral"><code>ty</code> from Astral</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/astral-sh/ty/">https://github.com/astral-sh/ty/</a><br />
+<strong>Development Repository:</strong> <a href="https://github.com/astral-sh/ruff/">https://github.com/astral-sh/ruff/</a></p>
+<p><strong>Key Highlights:</strong></p>
+<ul>
+<li>Strong focus on gradual guarantee principles</li>
+<li>Planned tight integration with Astral's existing linting tool <code>ruff</code>, with the aim to support type based linting rules.<sup class="footnote-reference"><a href="#1">1</a></sup></li>
+<li>Backing from a team combining Python core developers and very experienced Rust tooling developers</li>
+<li>Incremental computation at the function level leveraging the <a href="https://github.com/salsa-rs/salsa">salsa</a> library used by <a href="https://github.com/rust-lang/rust-analyzer/">rust-analyzer</a>. This could be particularly important on the LSP that <code>ty</code> provides to give very quick/responsive feedback loops in code editors.</li>
+</ul>
+<p><strong>Philosophy:</strong> Astral's approach emphasizes reliability and gradual adoption, making it easier for teams to incrementally add type checking to existing codebases without overwhelming developers with false positives.</p>
+<h2 id="pyrefly-from-meta"><code>pyrefly</code> from Meta</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/facebook/pyrefly">https://github.com/facebook/pyrefly</a></p>
+<p><strong>Key Highlights:</strong></p>
+<ul>
+<li>Successor to Meta's existing <a href="https://github.com/facebook/pyre-check">pyre</a> type checker, designed to eventually replace it</li>
+<li>Enhanced type inference capabilities by default</li>
+<li>Potentially higher upfront adoption cost due to aggressive inference which might flag issues with correct code</li>
+<li>Backed by Meta's substantial engineering resources and real-world usage at scale</li>
+</ul>
+<p><strong>Philosophy:</strong> Meta prioritizes powerful inference and catching more potential issues out of the box, even if this means a steeper learning curve for teams new to type checking.</p>
+<h2 id="zuban-from-david-halter"><code>zuban</code> from David Halter</h2>
+<p><strong>Homepage:</strong> <a href="https://zubanls.com/">https://zubanls.com/</a><br />
+<strong>Documentation:</strong> <a href="https://docs.zubanls.com/en/latest/">https://docs.zubanls.com/en/latest/</a></p>
+<p><strong>Key Highlights:</strong></p>
+<ul>
+<li>Created by the author of the popular Python LSP tool <code>jedi</code></li>
+<li>Aims for high-degree of compatibility with <code>mypy</code> to make adoption in large existing codebases seamless.</li>
+<li>Not FOSS<sup class="footnote-reference"><a href="#2">2</a></sup>, will require a license for codebases above 1.5 MB (~50,000 lines of code)<sup class="footnote-reference"><a href="#3">3</a></sup>.</li>
+<li>Currently maintained by a single author seems a potential risk to long-term sustainability as Python typing does not stand still.</li>
+</ul>
+<p><strong>Philosophy:</strong> Zuban aims to provide the smoothest possible migration path from existing type checkers, particularly <code>mypy</code>, making it attractive for organizations with substantial existing typed codebases.</p>
+<h1 id="typing-conformance-suite-analysis">Typing Conformance Suite Analysis</h1>
+<p>The Python Typing Council maintains a <a href="https://github.com/python/typing/tree/main/conformance">Conformance test suite</a> which validates the behavior of static type checkers against the expectations defined in the <a href="https://typing.python.org/en/latest/spec/index.html">Python typing specification</a>.</p>
+<p><code>ty</code> and <code>pyrefly</code> have not yet been added to the conformance suite, so it's harder to establish a baseline for their progress on this front.</p>
+<p>To help resolve this gap I have <a href="https://github.com/sinon/typing/pull/1">expanded the current test harness to support both of them</a><sup class="footnote-reference"><a href="#4">4</a></sup>, this also adds some additional debugging information to the html report to show the split between false negatives and false positives that the suite has detected in each test case.</p>
+<p>I've also included a local build of <code>ty</code> for two main reasons:</p>
+<ul>
+<li>I've wanted to investigate contributing to <code>ty</code> and/or <code>ruff</code> for a while, so this was good impetus to get things set up.</li>
+<li><code>ty</code> releases are cut relatively infrequently and I am impatient.</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<p><strong>Generated 29/08/2025</strong></p>
+<blockquote>
+<p>NOTE</p>
+<p>The following section is slightly unfair, all of these tools are in alpha and only one of these tools (Zuban) has opted into the Conformance suite.</p>
+<p>That being said even though <code>ty</code> is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.</p>
+</blockquote>
+<table><thead><tr><th style="text-align: center">Type Checker</th><th style="text-align: center">Total Test Case Passes</th><th style="text-align: center">Total Test Case Partial</th><th style="text-align: center">Total False Positives</th><th style="text-align: center">Total False Negatives</th><th>False Negatives</th></tr></thead><tbody>
+<tr><td style="text-align: center">zuban 0.0.20</td><td style="text-align: center">97</td><td style="text-align: center">42</td><td style="text-align: center">152</td><td style="text-align: center">89</td><td>92</td></tr>
+<tr><td style="text-align: center">ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)</td><td style="text-align: center">20</td><td style="text-align: center">119</td><td style="text-align: center">371</td><td style="text-align: center">603</td><td>603</td></tr>
+<tr><td style="text-align: center">Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29)</td><td style="text-align: center">20</td><td style="text-align: center">119</td><td style="text-align: center">370</td><td style="text-align: center">590</td><td>590</td></tr>
+<tr><td style="text-align: center">pyrefly 0.30.0</td><td style="text-align: center">81</td><td style="text-align: center">58</td><td style="text-align: center">100</td><td style="text-align: center">187</td><td>187</td></tr>
+</tbody></table>
+<h2 id="review-of-progress">Review of progress</h2>
+<p><code>zuban</code> has a lead, having full <code>Pass</code> on ~69% of test cases, compared with ~15% for <code>ty</code> and ~58% for <code>pyrefly</code>. Which makes sense as though it's released in a similar time period to <code>ty</code> and <code>pyrefly</code> it has been in active development in private for several years.</p>
+<p>The thing that surprised me more was how much progress <code>pyrefly</code> has made when compared to <code>ty</code>. This can maybe be partially explained from a point raised in <a href="https://blog.edward-li.com/tech/comparing-pyrefly-vs-ty/">Edward Li's blog excellent post on the Typing Summit at PyCon 2025</a> which mentions that the <code>pyrefly</code> team devoted a lot of up front time into solving some of the hard problems, such as generics.</p>
+<h1 id="other-resources-to-learn-more">Other resources to learn more</h1>
+<ul>
+<li><a href="https://blog.edward-li.com/tech/comparing-pyrefly-vs-ty/">Edward Li's excellent blog post comparing <code>ty</code> and <code>pyrefly</code></a> which also contains the videos recorded at the PyCon typing summit which both <code>ty</code> and <code>pyrefly</code> gave presentations at.</li>
+<li><a href="https://www.youtube.com/watch?v=V1OmqEYoSz4">Happy Path Programming - 114 ty: Fast Python Type Checking with Carl Meyer</a></li>
+<li><a href="https://www.youtube.com/watch?v=huHF0Rv8L14">Happy Path Programming - 115 More Python Type Checking! Pyrefly with Aaron Pollack &amp; Steven Troxler</a></li>
+<li><a href="https://talkpython.fm/episodes/show/506/ty-astrals-new-type-checker-formerly-red-knot">Talk Python - ty: Astral's New Type Checker (Formerly Red-Knot)</a></li>
+</ul>
+<h1 id="footnotes">Footnotes</h1>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Which can be demonstrated in the <a href="https://github.com/astral-sh/ruff/issues?q=is%3Aissue%20state%3Aopen%20label%3Atype-inference">open issues</a> on ruff tagged with <code>type-inference</code> which are bugs or new features that can only be resolved with <code>ruff</code> having access to deeper type inference data that <code>ty</code> can supply.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>David has indicated a plan to make <a href="https://github.com/python/typing/pull/2067#issuecomment-3177937964">source available in the future</a> when adding Zuban to the Python typing conformance suite.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>Full pricing information at: <a href="https://zubanls.com/pricing/">https://zubanls.com/pricing/</a></p>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>This is just for this blog post, no plans to seek merging this.</p>
+</div>
+<!-- Reference links --->
+
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Rob Hand
+                
+                
+                
+                    
+                    tagged
+                    
+                        <a href="https://sinon.github.io/tags/rust/">rust</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/python/">python</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/type-checkers/">type-checkers</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/typing/">typing</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+<script src="https://utteranc.es/client.js" repo="sinon/sinon.github.io" issue-term="url" label="comments"
+    theme="github-dark" crossorigin="anonymous" async>
+    </script>
+
+        </footer>
+    
+</article>
+
+
+
+
+  <!-- optional scripts -->
+  
+  
+  <script src="https://sinon.github.io/js/codeblock.js"></script>
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
