@@ -25,6 +25,18 @@ The Python type checking landscape is experiencing a particularly active phase o
 
 This continued shift toward Rust-based implementations represents a significant evolution in the Python tooling ecosystem, promising faster type checking, better IDE integration, and improved developer experience for large codebases.
 
+## The Incumbents
+
+Before examining these new Rust-based tools, it's worth understanding the current landscape of Python type checkers that have established the foundation for static typing in Python:
+
+**mypy** - The original and most widely adopted Python type checker, developed by Jukka Lehtosalo and now maintained by the mypy team. As the reference implementation for Python's type system, mypy has shaped many of the conventions and behaviors that newer tools aim to be compatible with. It's written in Python and offers comprehensive type checking capabilities, though performance can become a bottleneck on large codebases.
+
+**pyright/Pylance** - Microsoft's type checker written in TypeScript/Node.js. Pyright powers the Pylance extension in VS Code and is known for its fast performance and excellent IDE integration. It often implements new typing features before other checkers and provides rich editor feedback, making it popular among developers who prioritize IDE experience.
+
+**pyre** - A type checker from Meta, written in a mix of OCaml and Python. Designed to handle Meta's massive Python codebase, pyre introduced several performance optimizations and incremental checking capabilities. However, Meta is now developing pyrefly as pyre's successor.
+
+**pytype** - Google's type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behavior and generate stub files for gradual typing adoption. Written in Python, it's particularly useful for analyzing legacy codebases without type hints. However, Google announced in 2024 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.
+
 
 ## `ty` from Astral
 
@@ -100,6 +112,39 @@ __Generated 29/08/2025__
 `zuban` has a lead, having full `Pass` on ~69% of test cases, compared with ~15% for `ty` and ~58% for `pyrefly`. Which makes sense as though it's released in a similar time period to `ty` and `pyrefly` it has been in active development in private for several years.
 
 The thing that surprised me more was how much progress `pyrefly` has made when compared to `ty`. This can maybe be partially explained from a point raised in [Edward Li's blog excellent post on the Typing Summit at PyCon 2025][1] which mentions that the `pyrefly` team devoted a lot of up front time into solving some of the hard problems, such as generics.
+
+## Relevance?
+
+I initially came across the conformance test suite because `ty` runs every PR against the test suite and diffs the PR results against the results from `main` to ensure changes are desired. From this it's become a surprisingly useful learning tool for some of the more advanced typing topics, but the advanced nature of these topics raises an important question: **how relevant is the conformance suite pass rate for the average Python developer?**
+
+### The Gap Between Conformance and Real-World Usage
+
+The conformance test suite focuses heavily on advanced typing features that, while important for the specification, may not reflect the day-to-day typing needs of most Python codebases. Many of the test cases cover complex scenarios involving:
+
+- Advanced generic variance and bounds
+- Complex protocol inheritance hierarchies  
+- Edge cases in structural subtyping
+- Intricate interactions between multiple typing features
+
+In contrast, the majority of Python codebases primarily use:
+- Basic type annotations (`str`, `int`, `List[str]`, etc.)
+- Simple class hierarchies
+- Optional types and Union types
+- Basic generic containers
+
+### Practical Experience vs. Test Scores
+
+My experience using the `ty` VSCode extension in place of `Pylance` across various projects and libraries tells a different story than the conformance test scores suggest. Despite `ty`'s relatively low 15% full pass rate, it has been surprisingly effective at catching real bugs and providing useful feedback for common typing patterns.
+
+This suggests that while conformance test coverage is important for specification compliance and handling edge cases, it may not be the best predictor of a type checker's utility for everyday Python development. The features that matter most for typical codebases appear to be working well across all three tools, even when they struggle with more esoteric typing scenarios.
+
+### What This Means for Adoption Decisions
+
+For teams evaluating these type checkers, the conformance scores provide valuable insight into specification compliance and long-term robustness, but shouldn't be the sole deciding factor. Consider:
+
+- **For greenfield projects**: Any of these tools will likely handle your immediate needs well
+- **For large, complex codebases or libraries leaning on more esoteric generic patterns**: Higher conformance scores may indicate better handling of advanced patterns you might encounter
+- **For teams new to typing**: The difference in conformance scores may be less relevant than IDE integration, error message quality, and performance
 
 
 # Other resources to learn more
