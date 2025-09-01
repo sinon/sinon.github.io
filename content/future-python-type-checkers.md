@@ -118,7 +118,7 @@ __Generated 29/08/2025__
 
 `zuban` has a lead, having full `Pass` on ~69% of test cases, compared with ~15% for `ty` and ~58% for `pyrefly`. Which makes sense as though it's released in a similar time period to `ty` and `pyrefly` it has been in active development in private for several years.
 
-The thing that surprised me more was how much progress `pyrefly` has made when compared to `ty`. This can maybe be partially explained from a point raised in [Edward Li's blog excellent post on the Typing Summit at PyCon 2025][1] which mentions that the `pyrefly` team devoted a lot of up front time into solving some of the hard problems, such as generics.
+The thing that surprised me more was how much progress `pyrefly` has made when compared to `ty`. Both broke cover and released their first advertised alpha builds around the same time, in the run up to PyCon 2025. This can maybe be partially explained from a point raised in [Edward Li's excellent blog post on the Typing Summit at PyCon 2025][1] which mentions that the `pyrefly` team devoted a lot of up-front time to solving some of the hard problems, such as generics.
 
 ## Relevance?
 
