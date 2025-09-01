@@ -31,14 +31,15 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 **mypy** - The original and most widely adopted Python type checker, developed by Jukka Lehtosalo and now maintained by the mypy team. As the reference implementation for Python's type system, mypy has shaped many of the conventions and behaviors that newer tools aim to be compatible with. It's written in Python and offers comprehensive type checking capabilities, though performance can become a bottleneck on large codebases.
 
-**pyright/Pylance** - Microsoft's type checker written in TypeScript/Node.js. Pyright powers the Pylance extension in VS Code and is known for its fast performance and excellent IDE integration. It often implements new typing features before other checkers and provides rich editor feedback, making it popular among developers who prioritize IDE experience.
+**pyright/Pylance** - Microsoft's type checker written in TypeScript/Node.js. Pyright powers the Pylance extension in VS Code and is known for its fast performance and strong IDE integration. It often implements new typing features before other checkers and provides rich editor feedback, making it popular among developers who prioritize IDE experience.
 
 **pyre** - A type checker from Meta, written in a mix of OCaml and Python. Designed to handle Meta's massive Python codebase, pyre introduced several performance optimizations and incremental checking capabilities. However, Meta is now developing pyrefly as pyre's successor.
 
 **pytype** - Google's type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behavior and generate stub files for gradual typing adoption. Written in Python, it's particularly useful for analyzing legacy codebases without type hints. However, Google announced in 2024 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.
 
+## The newcomers
 
-## `ty` from Astral
+### `ty` from Astral
 
 **Repository:** <https://github.com/astral-sh/ty/>  
 **Development Repository:** <https://github.com/astral-sh/ruff/> 
@@ -51,7 +52,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 **Philosophy:** Astral's approach emphasizes reliability and gradual adoption, making it easier for teams to incrementally add type checking to existing codebases without overwhelming developers with false positives.
 
-## `pyrefly` from Meta
+### `pyrefly` from Meta
 
 **Repository:** <https://github.com/facebook/pyrefly>  
 
@@ -63,7 +64,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 **Philosophy:** Meta prioritizes powerful inference and catching more potential issues out of the box, even if this means a steeper learning curve for teams new to type checking.
 
-## `zuban` from David Halter
+### `zuban` from David Halter
 
 **Homepage:** <https://zubanls.com/>  
 **Documentation:** <https://docs.zubanls.com/en/latest/>
