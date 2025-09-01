@@ -1,5 +1,14 @@
 {% extends "index.html" %}
 
+
+{% block title %}
+{% if section.title %}
+Rob's Blog: {{ section.title }}
+{% else %}
+{{ super() }}
+{% endif %}
+{% endblock title %}
+
 {% block content %}
 <style>
     .tils-section .muted svg.i-clock,
