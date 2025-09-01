@@ -1,7 +1,7 @@
 +++
-title = "Ty versus Pyrefly versus Zuban: Reviewing the future of Python type checkers (Draft)"
+title = "How Well Do New Python Type Checkers Conform? A Deep Dive into Ty, Pyrefly, and Zuban"
 date = 2025-08-29
-description = "A comparison of three new Rust-based Python type checkers: Astral's ty, Meta's pyrefly, and David Halter's zuban"
+description = "A comparison of three new Rust-based Python type checkers through the lens of typing spec conformance: Astral's ty, Meta's pyrefly, and David Halter's zuban"
 
 [taxonomies]
 tags = ["rust", "python", "type-checkers", "typing"]
@@ -39,7 +39,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 **pyre** - A type checker from Meta, written in a mix of OCaml and Python. Designed to handle Meta's massive Python codebase, pyre introduced several performance optimizations and incremental checking capabilities. However, Meta is now developing pyrefly as pyre's successor.
 
-**pytype** - Google's type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behavior and generate stub files for gradual typing adoption. Written in Python, it's particularly useful for analyzing legacy codebases without type hints. However, Google announced in 2024 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.
+**pytype** - Google's type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behaviour and generate stub files for gradual typing adoption. Written in Python, it's particularly useful for analysing legacy codebases without type hints. However, Google announced in 2024 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.
 
 ## The newcomers
 
@@ -49,6 +49,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 **Development Repository:** <https://github.com/astral-sh/ruff/> 
 
 **Key Highlights:**
+
 - Strong focus on gradual guarantee principles
 - Planned tight integration with Astral's existing linting tool `ruff`, with the aim to support type based linting rules.[^1]
 - Backing from a team combining Python core developers and very experienced Rust tooling developers
@@ -61,6 +62,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 **Repository:** <https://github.com/facebook/pyrefly>  
 
 **Key Highlights:**
+
 - Successor to Meta's existing [pyre](https://github.com/facebook/pyre-check) type checker, designed to eventually replace it
 - Enhanced type inference capabilities by default
 - Potentially higher upfront adoption cost due to aggressive inference which might flag issues with correct code
@@ -74,6 +76,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 **Documentation:** <https://docs.zubanls.com/en/latest/>
 
 **Key Highlights:**
+
 - Created by the author of the popular Python LSP tool `jedi`
 - Aims for high-degree of compatibility with `mypy` to make adoption in large existing codebases seamless.
 - Not FOSS[^2], will require a license for codebases above 1.5 MB (~50,000 lines of code)[^3].
@@ -81,10 +84,9 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 **Philosophy:** Zuban aims to provide the smoothest possible migration path from existing type checkers, particularly `mypy`, making it attractive for organizations with substantial existing typed codebases.
 
-
 # Typing Conformance Suite Analysis
 
-The Python Typing Council maintains a [Conformance test suite](https://github.com/python/typing/tree/main/conformance) which validates the behavior of static type checkers against the expectations defined in the [Python typing specification](https://typing.python.org/en/latest/spec/index.html).
+The Python Typing Council maintains a [Conformance test suite](https://github.com/python/typing/tree/main/conformance) which validates the behaviour of static type checkers against the expectations defined in the [Python typing specification](https://typing.python.org/en/latest/spec/index.html).
 
 `ty` and `pyrefly` have not yet been added to the conformance suite, so it's harder to establish a baseline for their progress on this front.
 
@@ -92,8 +94,8 @@ To help resolve this gap I have [expanded the current test harness to support bo
 
 I've also included a local build of `ty` for two main reasons:
 
-* I've wanted to investigate contributing to `ty` and/or `ruff` for a while, so this was good impetus to get things set up.
-* `ty` releases are cut relatively infrequently and I am impatient.
+- I've wanted to investigate contributing to `ty` and/or `ruff` for a while, so this was good impetus to get things set up.
+- `ty` releases are cut relatively infrequently and I am impatient.
 
 ## Summary
 
@@ -105,12 +107,12 @@ __Generated 29/08/2025__
 >
 > That being said even though `ty` is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.
 
-|                  Type Checker                   | Total Test Case Passes | Total Test Case Partial | Total False Positives | Total False Negatives | False Negatives |
-| :---------------------------------------------: | :--------------------: | :---------------------: | :-------------------: | :-------------------: | --------------- |
-|                  zuban 0.0.20                   |           97           |           42            |          152          |          89           | 92              |
-|    ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)     |           20           |           119           |          371          |          603          | 603             |
-| Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) |           20           |           119           |          370          |          590          | 590             |
-|                 pyrefly 0.30.0                  |           81           |           58            |          100          |          187          | 187             |
+|                  Type Checker                   | Total Test Case Passes | Total Test Case Partial | Total False Positives | Total False Negatives |
+| :---------------------------------------------: | :--------------------: | :---------------------: | :-------------------: | :-------------------: | 
+|                  zuban 0.0.20                   |           97           |           42            |          152          |          89           |
+|    ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)     |           20           |           119           |          371          |          603          |
+| Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) |           20           |           119           |          370          |          590          |
+|                 pyrefly 0.30.0                  |           81           |           58            |          100          |          187          |
 
 ## Review of progress
 
@@ -132,6 +134,7 @@ The conformance test suite focuses heavily on advanced typing features that, whi
 - Intricate interactions between multiple typing features
 
 In contrast, the majority of Python codebases primarily use:
+
 - Basic type annotations (`str`, `int`, `List[str]`, etc.)
 - Simple class hierarchies
 - Optional types and Union types
@@ -151,14 +154,12 @@ For teams evaluating these type checkers, the conformance scores provide valuabl
 - **For large, complex codebases or libraries leaning on more esoteric generic patterns**: Higher conformance scores may indicate better handling of advanced patterns you might encounter
 - **For teams new to typing**: The difference in conformance scores may be less relevant than IDE integration, error message quality, and performance
 
-
 # Other resources to learn more
 
-* [Edward Li's excellent blog post comparing `ty` and `pyrefly`][1] which also contains the videos recorded at the PyCon typing summit which both `ty` and `pyrefly` gave presentations at.
-* [Happy Path Programming - 114 ty: Fast Python Type Checking with Carl Meyer](https://www.youtube.com/watch?v=V1OmqEYoSz4)
-* [Happy Path Programming - 115 More Python Type Checking! Pyrefly with Aaron Pollack & Steven Troxler](https://www.youtube.com/watch?v=huHF0Rv8L14)
-* [Talk Python - ty: Astral's New Type Checker (Formerly Red-Knot)](https://talkpython.fm/episodes/show/506/ty-astrals-new-type-checker-formerly-red-knot)
-
+- [Edward Li's excellent blog post comparing `ty` and `pyrefly`][1] which also contains the videos recorded at the PyCon typing summit which both `ty` and `pyrefly` gave presentations at.
+- [Happy Path Programming - 114 ty: Fast Python Type Checking with Carl Meyer](https://www.youtube.com/watch?v=V1OmqEYoSz4)
+- [Happy Path Programming - 115 More Python Type Checking! Pyrefly with Aaron Pollack & Steven Troxler](https://www.youtube.com/watch?v=huHF0Rv8L14)
+- [Talk Python - ty: Astral's New Type Checker (Formerly Red-Knot)](https://talkpython.fm/episodes/show/506/ty-astrals-new-type-checker-formerly-red-knot)
 
 # Footnotes
 
@@ -166,7 +167,6 @@ For teams evaluating these type checkers, the conformance scores provide valuabl
 [^2]: David has indicated a plan to make [source available in the future](https://github.com/python/typing/pull/2067#issuecomment-3177937964) when adding Zuban to the Python typing conformance suite.
 [^3]: Full pricing information at: <https://zubanls.com/pricing/>
 [^4]: This is just for this blog post, no plans to seek merging this.
-
 
 <!-- Reference links --->
 [1]: https://blog.edward-li.com/tech/comparing-pyrefly-vs-ty/
