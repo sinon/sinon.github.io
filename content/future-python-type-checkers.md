@@ -7,15 +7,19 @@ description = "A comparison of three new Rust-based Python type checkers: Astral
 tags = ["rust", "python", "type-checkers", "typing"]
 +++
 
-# Table of Contents
-
 - [Introduction](#introduction)
+  - [The Incumbents](#the-incumbents)
+  - [The newcomers](#the-newcomers)
     - [`ty` from Astral](#ty-from-astral)
     - [`pyrefly` from Meta](#pyrefly-from-meta)
     - [`zuban` from David Halter](#zuban-from-david-halter)
 - [Typing Conformance Suite Analysis](#typing-conformance-suite-analysis)
-    - [Summary](#summary)
-    - [Review of progress](#review-of-progress)
+  - [Summary](#summary)
+  - [Review of progress](#review-of-progress)
+  - [Relevance?](#relevance)
+    - [The Gap Between Conformance and Real-World Usage](#the-gap-between-conformance-and-real-world-usage)
+    - [Practical Experience vs. Test Scores](#practical-experience-vs-test-scores)
+    - [What This Means for Adoption Decisions](#what-this-means-for-adoption-decisions)
 - [Other resources to learn more](#other-resources-to-learn-more)
 - [Footnotes](#footnotes)
 
@@ -97,16 +101,16 @@ __Generated 29/08/2025__
 
 > NOTE
 >
-> The following section is slightly unfair, all of these tools are in alpha and only one of these tools (Zuban) has opted into the Conformance suite.
+> The following section is slightly unfair, all of these tools are in alpha and only one of these tools (Zuban) has opted into the Conformance suite. This was mainly driven by own curiosity and seemed like an interesting project to understand the conformance test suite better.
 >
 > That being said even though `ty` is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.
 
-|                   Type Checker                  | Total Test Case Passes | Total Test Case Partial | Total False Positives | Total False Negatives | False Negatives |
-|:-----------------------------------------------:|:----------------------:|:-----------------------:|:---------------------:|:---------------------:|-----------------|
-|                   zuban 0.0.20                  | 97                     | 42                      | 152                   | 89                    | 92              |
-|     ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)    | 20                     | 119                     | 371                   | 603                   | 603             |
-| Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) | 20                     | 119                     | 370                   | 590                   | 590             |
-|                  pyrefly 0.30.0                 | 81                     | 58                      | 100                   | 187                   | 187             |
+|                  Type Checker                   | Total Test Case Passes | Total Test Case Partial | Total False Positives | Total False Negatives | False Negatives |
+| :---------------------------------------------: | :--------------------: | :---------------------: | :-------------------: | :-------------------: | --------------- |
+|                  zuban 0.0.20                   |           97           |           42            |          152          |          89           | 92              |
+|    ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)     |           20           |           119           |          371          |          603          | 603             |
+| Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) |           20           |           119           |          370          |          590          | 590             |
+|                 pyrefly 0.30.0                  |           81           |           58            |          100          |          187          | 187             |
 
 ## Review of progress
 
@@ -141,7 +145,7 @@ This suggests that while conformance test coverage is important for specificatio
 
 ### What This Means for Adoption Decisions
 
-For teams evaluating these type checkers, the conformance scores provide valuable insight into specification compliance and long-term robustness, but shouldn't be the sole deciding factor. Consider:
+For teams evaluating these type checkers, the conformance scores provide valuable insight into specification compliance, but shouldn't be the sole deciding factor. Consider:
 
 - **For greenfield projects**: Any of these tools will likely handle your immediate needs well
 - **For large, complex codebases or libraries leaning on more esoteric generic patterns**: Higher conformance scores may indicate better handling of advanced patterns you might encounter
