@@ -55,7 +55,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 - Backing from a team combining Python core developers and very experienced Rust tooling developers
 - Incremental computation at the function level leveraging the [salsa](https://github.com/salsa-rs/salsa) library used by [rust-analyzer](https://github.com/rust-lang/rust-analyzer/). This could be particularly important on the LSP that `ty` provides to give very quick/responsive feedback loops in code editors.
 
-**Philosophy:** Astral's approach emphasizes reliability and gradual adoption, making it easier for teams to incrementally add type checking to existing codebases without overwhelming developers with false positives.
+**Philosophy:** Astral's approach emphasizes reliability and gradual adoption, making it easier for teams to incrementally add type checking to existing codebases without overwhelming developers with potential false positives.
 
 ### `pyrefly` from Meta
 
