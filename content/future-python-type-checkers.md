@@ -9,7 +9,7 @@ tags = ["rust", "python", "type-checkers", "typing"]
 
 - [Introduction](#introduction)
   - [The Incumbents](#the-incumbents)
-  - [The newcomers](#the-newcomers)
+  - [The Newcomers](#the-newcomers)
     - [`ty` from Astral](#ty-from-astral)
     - [`pyrefly` from Meta](#pyrefly-from-meta)
     - [`zuban` from David Halter](#zuban-from-david-halter)
@@ -41,7 +41,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 **pytype** - Google's type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behaviour and generate stub files for gradual typing adoption. Written in Python, it's particularly useful for analysing legacy codebases without type hints. However, Google announced in 2024 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.
 
-## The newcomers
+## The Newcomers
 
 ### `ty` from Astral
 
