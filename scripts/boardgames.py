@@ -64,9 +64,9 @@ def parse_collection_xml(xml_content: str) -> List[Dict[str, Any]]:
         if year_elem is not None:
             game["yearpublished"] = year_elem.text
 
-        thumbnail_elem = item.find("thumbnail")
+        thumbnail_elem = item.find("image")
         if thumbnail_elem is not None:
-            game["thumbnail"] = thumbnail_elem.text
+            game["image"] = thumbnail_elem.text
         comment_elem = item.find("comment")
         if comment_elem is not None:
             game["comment"] = comment_elem.text
