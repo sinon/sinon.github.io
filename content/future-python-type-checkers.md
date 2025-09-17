@@ -79,7 +79,7 @@ Before examining these new Rust-based tools, it's worth understanding the curren
 
 - Created by the author of the popular Python LSP tool `jedi`
 - Aims for high-degree of compatibility with `mypy` to make adoption in large existing codebases seamless.
-- Not FOSS[^2], will require a license for codebases above 1.5 MB (~50,000 lines of code)[^3].
+- ~~Not FOSS[^2], will require a license for codebases above 1.5 MB (~50,000 lines of code)[^3]~~**Update (September 2025):** Now open source under the AGPL license, though commercial licensing is available for business who prefer to avoid AGPL compliance.
 - Currently maintained by a single author seems a potential risk to long-term sustainability as Python typing does not stand still.
 
 **Philosophy:** Zuban aims to provide the smoothest possible migration path from existing type checkers, particularly `mypy`, making it attractive for organizations with substantial existing typed codebases.
@@ -108,7 +108,7 @@ __Generated 29/08/2025__
 > That being said even though `ty` is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.
 
 |                  Type Checker                   | Total Test Case Passes | Total Test Case Partial | Total False Positives | Total False Negatives |
-| :---------------------------------------------: | :--------------------: | :---------------------: | :-------------------: | :-------------------: | 
+| :---------------------------------------------: | :--------------------: | :---------------------: | :-------------------: | :-------------------: |
 |                  zuban 0.0.20                   |           97           |           42            |          152          |          89           |
 |    ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)     |           20           |           119           |          371          |          603          |
 | Local:ty ruff/0.12.11+27 (0bf5d2a20 2025-08-29) |           20           |           119           |          370          |          590          |
@@ -165,7 +165,7 @@ For teams evaluating these type checkers, the conformance scores provide valuabl
 
 [^1]: Which can be demonstrated in the [open issues](https://github.com/astral-sh/ruff/issues?q=is%3Aissue%20state%3Aopen%20label%3Atype-inference ) on ruff tagged with `type-inference` which are bugs or new features that can only be resolved with `ruff` having access to deeper type inference data that `ty` can supply. 
 [^2]: David has indicated a plan to make [source available in the future](https://github.com/python/typing/pull/2067#issuecomment-3177937964) when adding Zuban to the Python typing conformance suite.
-[^3]: Full pricing information at: <https://zubanls.com/pricing/>
+[^3]: ~~Full pricing information at: https://zubanls.com/pricing/~~ **Update (September 2025):** Pricing is now available on request for the non-AGPL license.
 [^4]: This is just for this blog post, no plans to seek merging this.
 
 <!-- Reference links --->

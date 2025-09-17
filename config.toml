@@ -4,7 +4,7 @@ default_language = "en"
 title = "Rob's Blog | Python • Rust • Ramblings?"
 
 # Whether to automatically compile all Sass files in the sass directory
-compile_sass = false
+compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
@@ -29,6 +29,7 @@ after_dark_menu = [
   { name = "Home", url = "$BASE_URL" },
   { name = "About", url = "$BASE_URL/about/" },
   { name = "Now", url = "$BASE_URL/now/" },
+  { name = "Boardgames", url = "$BASE_URL/boardgames" },
   { name = "TILs", url = "$BASE_URL/tils/" },
   { name = "Tags", url = "$BASE_URL/tags" },
   { name = "Source", url = "https://github.com/sinon/sinon.github.io" },
