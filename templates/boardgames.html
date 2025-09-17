@@ -27,21 +27,21 @@
         {% endif %}
         <div class="game-card">
             <div class="game-header">
-                <img src="{{ game.image }}" alt="{{game.name}}" class="game-thumbnail">
+                <img src="{{ game.image }}" alt="{{ game.name }}" class="game-thumbnail">
                 <div class="game-info">
-                    <h3 class="game-title">{{game.name}}</h3>
-                    <p class="game-year">{{game.yearpublished}}</p>
+                    <h3 class="game-title">{{ game.name }}</h3>
+                    <p class="game-year">{{ game.yearpublished }}</p>
                 </div>
             </div>
             <div class="game-stats">
-                <span>👥 {{game.stats.minplayers}}-{{game.stats.maxplayers}} players</span>
-                <span>⏱️ {{game.stats.playingtime}} min</span>
+                <span>👥 {{ game.stats.minplayers }}-{{ game.stats.maxplayers }} players</span>
+                <span>⏱️ {{ game.stats.playingtime }} min</span>
             </div>
             <div class="game-rating {{rating_class}}">
-                Rating: {% if game.my_rating %}{{game.my_rating}}{% else %}N/A{% endif %}
+                Rating: {% if game.my_rating %}{{ game.my_rating }}{% else %}N/A{% endif %}
             </div>
             {% if game.comment %}
-            <div class="game-comment">{{game.comment}}</div>
+            <div class="game-comment">{{ game.comment }}</div>
             {% endif %}
         </div>
         {% endfor %}
