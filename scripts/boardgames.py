@@ -6,7 +6,7 @@
 # ]
 # ///
 
-import requests
+import requests  # type: ignore[import-error] pyrefly/pylance can't find a venv for one-off uv script run
 import xml.etree.ElementTree as ET
 import json
 import time
@@ -47,7 +47,7 @@ def parse_collection_xml(xml_content: str) -> List[Dict[str, Any]]:
     games = []
 
     for item in root.findall("item"):
-        game = {
+        game: dict[str, str | float | None | dict[str, str | None]] = {
             "objectid": item.get("objectid"),
             "name": None,
             "yearpublished": None,
@@ -75,13 +75,15 @@ def parse_collection_xml(xml_content: str) -> List[Dict[str, Any]]:
         if stats_elem is not None:
             rating_elem = stats_elem.find("rating")
             if rating_elem is not None:
-                game["stats"] = {
+                st = {
                     "minplayers": stats_elem.get("minplayers"),
                     "maxplayers": stats_elem.get("maxplayers"),
                     "playingtime": stats_elem.get("playingtime"),
                 }
-                if rating_elem.get("value") != "N/A":
-                    game["my_rating"] = float(rating_elem.get("value"))
+                game["stats"] = st
+                rating = rating_elem.get("value")
+                if rating is not None and rating != "N/A":
+                    game["my_rating"] = float(rating)
         games.append(game)
     games = sorted(games, key=lambda x: x["my_rating"] or 0, reverse=True)
     return games

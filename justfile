@@ -4,3 +4,7 @@ clean-gps:
 lint:
   uvx codespell -I .codespellignore content/
   lychee -v content/*.md
+pylint:
+  uvx ruff format scripts
+  uvx ruff check scripts
+  uvx pyrefly check scripts
