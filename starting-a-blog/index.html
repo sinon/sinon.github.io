@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  
+  <meta name="description" content="Why I started blogging and my experience setting up Zola with GitHub Pages." />
+  
+  
+
+  <title>
+    
+    Stepping Out of My Comfort Zone: A Backend Engineer&#x27;s Journey into Blogging
+    
+</title>
+  <link rel="alternate" type="application/rss+xml" title="Rob&#x27;s Blog | Python • Rust • Ramblings? RSS Feed" href="https://sinon.github.io/rss.xml" />
+
+  
+  <link rel="stylesheet" href="https://sinon.github.io/site.css">
+  
+
+  
+<meta name="google-site-verification" content="-ht4RJntETG9MGDTzs9S26SvB4bY0x6xZVleu7oziUs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sinon.github.io/" />
+<meta property="og:site_name" content="Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+
+<meta property="og:url" content="https:&#x2F;&#x2F;sinon.github.io/starting-a-blog/" />
+
+
+<meta property="og:title" content="Stepping Out of My Comfort Zone: A Backend Engineer&#x27;s Journey into Blogging —&nbsp;Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+<meta property="og:description" content="Why I started blogging and my experience setting up Zola with GitHub Pages." />
+
+
+<meta property="og:article:tag" content="blogging,zola" />
+
+
+
+
+</head>
+
+<body class="hack dark main container">
+  
+
+
+    
+        
+  
+  <header class="nav-header">
+    <nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="navbar">
+      <div class="nav-links">
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io">
+          <span itemprop="name">Home</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/about/">
+          <span itemprop="name">About</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/now/">
+          <span itemprop="name">Now</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/boardgames">
+          <span itemprop="name">Boardgames</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tils/">
+          <span itemprop="name">TILs</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tags">
+          <span itemprop="name">Tags</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon/sinon.github.io">
+          <span itemprop="name">Source</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon">
+          <span itemprop="name">GitHub</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://raw.githubusercontent.com/sinon/CV/main/cv.pdf">
+          <span itemprop="name">CV</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/rss.xml">
+          <span itemprop="name">RSS</span></a>
+        
+      </div>
+    </nav>
+    
+
+  </header>
+  
+  
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Stepping Out of My Comfort Zone: A Backend Engineer&#x27;s Journey into Blogging</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>5 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-10-13
+</span>
+    </header>
+    <div itemprop="articleBody">
+      <ul>
+<li><a href="https://sinon.github.io/starting-a-blog/#why-start-a-blog">Why start a blog?</a></li>
+<li><a href="https://sinon.github.io/starting-a-blog/#the-nuts-and-bolts">The nuts and bolts</a>
+<ul>
+<li><a href="https://sinon.github.io/starting-a-blog/#why-zola">Why Zola?</a></li>
+<li><a href="https://sinon.github.io/starting-a-blog/#why-github-pages">Why Github Pages?</a></li>
+</ul>
+</li>
+<li><a href="https://sinon.github.io/starting-a-blog/#conclusion-and-next-steps">Conclusion and Next Steps</a></li>
+<li><a href="https://sinon.github.io/starting-a-blog/#footnotes">Footnotes</a></li>
+</ul>
+<p>As a backend engineer with over a decade of experience,
+I've spent countless hours diving deep into code, architecting systems, and solving complex problems.
+But recently, I've felt a growing urge to step out of my comfort zone and embark on a new challenge: starting a blog.
+In this post, I'll discuss my motivations for starting a blog and briefly explain my choice of tools: Zola and GitHub Pages.</p>
+<h2 id="why-start-a-blog">Why start a blog?</h2>
+<ul>
+<li>
+<p><strong>Preserving Knowledge across Roles</strong>: In my current and past roles I have tried to follow parts of the recommendations in
+<a href="https://jmmv.dev/2021/04/always-be-quitting.html">Always be quitting</a> when it comes to documenting various aspects of my role.
+The problem with this is that even when it's a generic explainer or How To this information is lost to me once I move roles.</p>
+</li>
+<li>
+<p><strong>Personal knowledge management</strong>: Memory is imperfect, and trying to find the same piece of information
+you've already encountered can be frustrating, even in this brave new world of LLMs.
+A blog can serve as a personal wiki or Zettelkasten system,
+helping me organize and retrieve information more efficiently.</p>
+</li>
+<li>
+<p><strong><a href="https://en.wikipedia.org/wiki/Rubber_duck_debugging">Rubber duck debugging</a></strong><sup class="footnote-reference"><a href="#1">1</a></sup>: This technique for solving problems when
+combined with posting the updates in Slack or Teams naturally leads to a set of useful
+textual information, transforming this into a blog item that might help someone else or maybe more importantly my future self
+facing the same problem again is an attactive proposition.</p>
+</li>
+<li>
+<p><strong><a href="https://www.complexsystemspodcast.com/">Complex Systems Podcast</a></strong>: I have recently been enjoying the podcast Complex Systems hosted by Patrick McKenzie (Patio11)
+which in many of its episodes re-enforces the role of regular written communication and the benefits of it in
+critical thinking and self-examination.</p>
+</li>
+<li>
+<p><strong>"Show your workings"</strong>: During secondary school, it was drilled into me to always show my workings in mathematics and science.
+The right answer wasn't always enough; demonstrating how you came to that answer was almost as important<sup class="footnote-reference"><a href="#2">2</a></sup>. While I didn't fully appreciate this at the time, I've found throughout my professional life that following this mantra has solved or prevented many problems from developing.</p>
+<p>Blogging serves as an excellent platform for "showing my workings" in my professional context.
+By writing about my problem-solving processes, architectural decisions, or even my learning journey,
+I'm not just sharing the final solution but the entire thought process behind it. This approach offers several benefits:</p>
+<ul>
+<li>It helps me clarify my own thinking and often leads to new insights.</li>
+<li>It provides a valuable resource for others who might be facing similar challenges.</li>
+<li>It creates a record of my decision-making process, which can be incredibly useful when revisiting projects or defending choices later on.</li>
+<li>It encourages a culture of transparency and knowledge-sharing within the tech community.</li>
+</ul>
+<p>By treating my blog as a place to "show my workings," I'm not just creating content – I'm cultivating a habit of thorough analysis and clear communication that will serve me well throughout my career.</p>
+</li>
+</ul>
+<h2 id="the-nuts-and-bolts">The nuts and bolts</h2>
+<h3 id="why-zola">Why Zola?</h3>
+<ul>
+<li><a href="https://getzola.org">Zola</a> is written in Rust ⚡ which aligns well with my ongoing side project to improve my Rust proficiency. I'm actively seeking opportunities to apply and deepen my Rust knowledge, so Zola's Rust foundation was a significant factor in my decision. By using Zola regularly for blogging, I hope to familiarize myself with its codebase. This familiarity could potentially lead to contributing to Zola's open-source project in the future, further enhancing my Rust skills.</li>
+<li>It's a SSG (Static Site Generator) which works nicely with Github Pages.</li>
+<li>Builds off strong pre-existing tooling such as Hugo, Pelican and Jeykyll.</li>
+<li>It uses Tera as its template engine, which has a syntax similar to Jinja2 and Django templates. This familiarity is advantageous, as I have prior experience with both Jinja2 and Django, reducing the learning curve for creating and managing blog templates.</li>
+<li>Content written in CommonMark (expanded with some Github flavour via <a href="https://pulldown-cmark.github.io/pulldown-cmark/cheat-sheet.html"><code>pulldown-cmark</code></a>).</li>
+</ul>
+<h3 id="why-github-pages">Why Github Pages?</h3>
+<p>No real thought went into this choice, it was the default. Maybe in the future I will actually
+examine other options. This is mainly that it's free, easy and fits easily into my usual
+development flows.</p>
+<h2 id="conclusion-and-next-steps">Conclusion and Next Steps</h2>
+<p>Starting this blog represents a practical step in documenting my work and sharing knowledge. By using Zola and GitHub Pages, I'm balancing the desire to learn new tools with the need for a straightforward, low-maintenance platform.</p>
+<p>Moving forward, I plan to focus on:</p>
+<ol>
+<li>Documenting solutions to specific backend engineering problems I encounter</li>
+<li>Sharing brief explanations of useful techniques or patterns from my daily work</li>
+<li>Posting occasional updates on my progress with learning Rust and any Zola-related insights</li>
+<li>Writing about system design decisions and trade-offs from recent projects</li>
+</ol>
+<p>I don't have a fixed posting schedule, but I aim to write when I have something concrete and useful to share. The primary goal is to create a resource that's valuable for my future self, with the added benefit of potentially helping others facing similar challenges.</p>
+<p>This blog is a work in progress, and its direction may evolve based on what I find most useful and manageable alongside my primary work. If you happen to find something helpful here, all the better.</p>
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Here is my current partner in debugging:</p>
+</div>
+<center>
+<img src="/RubberDuckDarkSouls.jpg" width="50%" height="50%" alt="Dark Souls Rubber duck"/>
+</center>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>especially for the cases where you were actually wrong</p>
+</div>
+<!-- Reference links --->
+
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Rob Hand
+                
+                
+                
+                    
+                    tagged
+                    
+                        <a href="https://sinon.github.io/tags/blogging/">blogging</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/zola/">zola</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+<script src="https://utteranc.es/client.js" repo="sinon/sinon.github.io" issue-term="url" label="comments"
+    theme="github-dark" crossorigin="anonymous" async>
+    </script>
+
+        </footer>
+    
+</article>
+
+
+
+
+  <!-- optional scripts -->
+  
+  
+  <script src="https://sinon.github.io/js/codeblock.js"></script>
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

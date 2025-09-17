@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - rust</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/rust/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>How Well Do New Python Type Checkers Conform? A Deep Dive into Ty, Pyrefly, and Zuban</title>
+          <pubDate>Fri, 29 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/future-python-type-checkers/</link>
+          <guid>https://sinon.github.io/future-python-type-checkers/</guid>
+          <description xml:base="https://sinon.github.io/future-python-type-checkers/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#introduction&quot;&gt;Introduction&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#the-incumbents&quot;&gt;The Incumbents&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#the-newcomers&quot;&gt;The Newcomers&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#ty-from-astral&quot;&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; from Astral&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#pyrefly-from-meta&quot;&gt;&lt;code&gt;pyrefly&lt;&#x2F;code&gt; from Meta&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#zuban-from-david-halter&quot;&gt;&lt;code&gt;zuban&lt;&#x2F;code&gt; from David Halter&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#typing-conformance-suite-analysis&quot;&gt;Typing Conformance Suite Analysis&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#summary&quot;&gt;Summary&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#review-of-progress&quot;&gt;Review of progress&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#relevance&quot;&gt;Relevance?&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#the-gap-between-conformance-and-real-world-usage&quot;&gt;The Gap Between Conformance and Real-World Usage&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#practical-experience-vs-test-scores&quot;&gt;Practical Experience vs. Test Scores&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#what-this-means-for-adoption-decisions&quot;&gt;What This Means for Adoption Decisions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#other-resources-to-learn-more&quot;&gt;Other resources to learn more&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#footnotes&quot;&gt;Footnotes&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;&#x2F;h1&gt;
+&lt;p&gt;The Python type checking landscape is experiencing a particularly active phase of innovation in 2025. This year has witnessed the emergence of not one, not two, but &lt;strong&gt;three&lt;&#x2F;strong&gt; new Python type checking tools, each backed by significant pedigree and resources. While these tools have slightly different goals and philosophies, they share a common foundation: all are built in Rust with performance as a core design principle.&lt;&#x2F;p&gt;
+&lt;p&gt;This continued shift toward Rust-based implementations represents a significant evolution in the Python tooling ecosystem, promising faster type checking, better IDE integration, and improved developer experience for large codebases.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-incumbents&quot;&gt;The Incumbents&lt;&#x2F;h2&gt;
+&lt;p&gt;Before examining these new Rust-based tools, it&#x27;s worth understanding the current landscape of Python type checkers that have established the foundation for static typing in Python:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;mypy&lt;&#x2F;strong&gt; - The original and most widely adopted Python type checker, developed by Jukka Lehtosalo and now maintained by the mypy team. As the reference implementation for Python&#x27;s type system, mypy has shaped many of the conventions and behaviors that newer tools aim to be compatible with. It&#x27;s written in Python and offers comprehensive type checking capabilities, though performance can become a bottleneck on large codebases.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;pyright&#x2F;Pylance&lt;&#x2F;strong&gt; - Microsoft&#x27;s type checker written in TypeScript&#x2F;Node.js. Pyright powers the Pylance extension in VS Code and is known for its fast performance and strong IDE integration. It often implements new typing features before other checkers and provides rich editor feedback, making it popular among developers who prioritize IDE experience.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;pyre&lt;&#x2F;strong&gt; - A type checker from Meta, written in a mix of OCaml and Python. Designed to handle Meta&#x27;s massive Python codebase, pyre introduced several performance optimizations and incremental checking capabilities. However, Meta is now developing pyrefly as pyre&#x27;s successor.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;pytype&lt;&#x2F;strong&gt; - Google&#x27;s type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behaviour and generate stub files for gradual typing adoption. Written in Python, it&#x27;s particularly useful for analysing legacy codebases without type hints. However, Google announced in 2025 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-newcomers&quot;&gt;The Newcomers&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ty-from-astral&quot;&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; from Astral&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ty&#x2F;&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ty&#x2F;&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;Development Repository:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ruff&#x2F;&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ruff&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Key Highlights:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Strong focus on gradual guarantee principles&lt;&#x2F;li&gt;
+&lt;li&gt;Planned tight integration with Astral&#x27;s existing linting tool &lt;code&gt;ruff&lt;&#x2F;code&gt;, with the aim to support type based linting rules.&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Backing from a team combining Python core developers and very experienced Rust tooling developers&lt;&#x2F;li&gt;
+&lt;li&gt;Incremental computation at the function level leveraging the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;salsa-rs&#x2F;salsa&quot;&gt;salsa&lt;&#x2F;a&gt; library used by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust-analyzer&#x2F;&quot;&gt;rust-analyzer&lt;&#x2F;a&gt;. This could be particularly important on the LSP that &lt;code&gt;ty&lt;&#x2F;code&gt; provides to give very quick&#x2F;responsive feedback loops in code editors.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Philosophy:&lt;&#x2F;strong&gt; Astral&#x27;s approach emphasizes reliability and gradual adoption, making it easier for teams to incrementally add type checking to existing codebases without overwhelming developers with potential false positives.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;pyrefly-from-meta&quot;&gt;&lt;code&gt;pyrefly&lt;&#x2F;code&gt; from Meta&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;pyrefly&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;pyrefly&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Key Highlights:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Successor to Meta&#x27;s existing &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;pyre-check&quot;&gt;pyre&lt;&#x2F;a&gt; type checker, designed to eventually replace it&lt;&#x2F;li&gt;
+&lt;li&gt;Enhanced type inference capabilities by default&lt;&#x2F;li&gt;
+&lt;li&gt;Potentially higher upfront adoption cost due to aggressive inference which might flag issues with correct code&lt;&#x2F;li&gt;
+&lt;li&gt;Backed by Meta&#x27;s substantial engineering resources and real-world usage at scale&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Philosophy:&lt;&#x2F;strong&gt; Meta prioritizes powerful inference and catching more potential issues out of the box, even if this means a steeper learning curve for teams new to type checking.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;zuban-from-david-halter&quot;&gt;&lt;code&gt;zuban&lt;&#x2F;code&gt; from David Halter&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Homepage:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;zubanls.com&#x2F;&quot;&gt;https:&#x2F;&#x2F;zubanls.com&#x2F;&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;Documentation:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;docs.zubanls.com&#x2F;en&#x2F;latest&#x2F;&quot;&gt;https:&#x2F;&#x2F;docs.zubanls.com&#x2F;en&#x2F;latest&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Key Highlights:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Created by the author of the popular Python LSP tool &lt;code&gt;jedi&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Aims for high-degree of compatibility with &lt;code&gt;mypy&lt;&#x2F;code&gt; to make adoption in large existing codebases seamless.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;del&gt;Not FOSS&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, will require a license for codebases above 1.5 MB (~50,000 lines of code)&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#3&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;del&gt;&lt;strong&gt;Update (September 2025):&lt;&#x2F;strong&gt; Now open source under the AGPL license, though commercial licensing is available for business who prefer to avoid AGPL compliance.&lt;&#x2F;li&gt;
+&lt;li&gt;Currently maintained by a single author seems a potential risk to long-term sustainability as Python typing does not stand still.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Philosophy:&lt;&#x2F;strong&gt; Zuban aims to provide the smoothest possible migration path from existing type checkers, particularly &lt;code&gt;mypy&lt;&#x2F;code&gt;, making it attractive for organizations with substantial existing typed codebases.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;typing-conformance-suite-analysis&quot;&gt;Typing Conformance Suite Analysis&lt;&#x2F;h1&gt;
+&lt;p&gt;The Python Typing Council maintains a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;typing&#x2F;tree&#x2F;main&#x2F;conformance&quot;&gt;Conformance test suite&lt;&#x2F;a&gt; which validates the behaviour of static type checkers against the expectations defined in the &lt;a href=&quot;https:&#x2F;&#x2F;typing.python.org&#x2F;en&#x2F;latest&#x2F;spec&#x2F;index.html&quot;&gt;Python typing specification&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt; have not yet been added to the conformance suite, so it&#x27;s harder to establish a baseline for their progress on this front.&lt;&#x2F;p&gt;
+&lt;p&gt;To help resolve this gap I have &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;typing&#x2F;pull&#x2F;1&quot;&gt;expanded the current test harness to support both of them&lt;&#x2F;a&gt;&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#4&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, this also adds some additional debugging information to the html report to show the split between false negatives and false positives that the suite has detected in each test case.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve also included a local build of &lt;code&gt;ty&lt;&#x2F;code&gt; for two main reasons:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;I&#x27;ve wanted to investigate contributing to &lt;code&gt;ty&lt;&#x2F;code&gt; and&#x2F;or &lt;code&gt;ruff&lt;&#x2F;code&gt; for a while, so this was good impetus to get things set up.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; releases are cut relatively infrequently and I am impatient.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Generated 29&#x2F;08&#x2F;2025&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NOTE&lt;&#x2F;p&gt;
+&lt;p&gt;The following section is slightly unfair, all of these tools are in alpha and only one of these tools (Zuban) has opted into the Conformance suite. This was mainly driven by own curiosity and seemed like an interesting project to understand the conformance test suite better.&lt;&#x2F;p&gt;
+&lt;p&gt;That being said even though &lt;code&gt;ty&lt;&#x2F;code&gt; is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: center&quot;&gt;Type Checker&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total Test Case Passes&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total Test Case Partial&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total False Positives&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total False Negatives&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;zuban 0.0.20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;97&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;42&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;152&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;89&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;119&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;371&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;603&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;Local:ty ruff&#x2F;0.12.11+27 (0bf5d2a20 2025-08-29)&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;119&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;370&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;590&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;pyrefly 0.30.0&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;81&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;58&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;100&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;187&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;review-of-progress&quot;&gt;Review of progress&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;code&gt;zuban&lt;&#x2F;code&gt; has a lead, having full &lt;code&gt;Pass&lt;&#x2F;code&gt; on ~69% of test cases, compared with ~15% for &lt;code&gt;ty&lt;&#x2F;code&gt; and ~58% for &lt;code&gt;pyrefly&lt;&#x2F;code&gt;. Which makes sense as though it&#x27;s released in a similar time period to &lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt; it has been in active development in private for several years.&lt;&#x2F;p&gt;
+&lt;p&gt;The thing that surprised me more was how much progress &lt;code&gt;pyrefly&lt;&#x2F;code&gt; has made when compared to &lt;code&gt;ty&lt;&#x2F;code&gt;. Both broke cover and released their first advertised alpha builds around the same time, in the run up to PyCon 2025. This can maybe be partially explained from a point raised in &lt;a href=&quot;https:&#x2F;&#x2F;blog.edward-li.com&#x2F;tech&#x2F;comparing-pyrefly-vs-ty&#x2F;&quot;&gt;Edward Li&#x27;s excellent blog post on the Typing Summit at PyCon 2025&lt;&#x2F;a&gt; which mentions that the &lt;code&gt;pyrefly&lt;&#x2F;code&gt; team devoted a lot of up-front time to solving some of the hard problems, such as generics.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;relevance&quot;&gt;Relevance?&lt;&#x2F;h2&gt;
+&lt;p&gt;I initially came across the conformance test suite because &lt;code&gt;ty&lt;&#x2F;code&gt; runs every PR against the test suite and diffs the PR results against the results from &lt;code&gt;main&lt;&#x2F;code&gt; to ensure changes are desired. From this it&#x27;s become a surprisingly useful learning tool for some of the more advanced typing topics, but the advanced nature of these topics raises an important question: &lt;strong&gt;how relevant is the conformance suite pass rate for the average Python developer?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-gap-between-conformance-and-real-world-usage&quot;&gt;The Gap Between Conformance and Real-World Usage&lt;&#x2F;h3&gt;
+&lt;p&gt;The conformance test suite focuses heavily on advanced typing features that, while important for the specification, may not reflect the day-to-day typing needs of most Python codebases. Many of the test cases cover complex scenarios involving:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Advanced generic variance and bounds&lt;&#x2F;li&gt;
+&lt;li&gt;Complex protocol inheritance hierarchies&lt;&#x2F;li&gt;
+&lt;li&gt;Edge cases in structural subtyping&lt;&#x2F;li&gt;
+&lt;li&gt;Intricate interactions between multiple typing features&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In contrast, the majority of Python codebases primarily use:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Basic type annotations (&lt;code&gt;str&lt;&#x2F;code&gt;, &lt;code&gt;int&lt;&#x2F;code&gt;, &lt;code&gt;List[str]&lt;&#x2F;code&gt;, etc.)&lt;&#x2F;li&gt;
+&lt;li&gt;Simple class hierarchies&lt;&#x2F;li&gt;
+&lt;li&gt;Optional types and Union types&lt;&#x2F;li&gt;
+&lt;li&gt;Basic generic containers&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;practical-experience-vs-test-scores&quot;&gt;Practical Experience vs. Test Scores&lt;&#x2F;h3&gt;
+&lt;p&gt;My experience using the &lt;code&gt;ty&lt;&#x2F;code&gt; VSCode extension in place of &lt;code&gt;Pylance&lt;&#x2F;code&gt; across various projects and libraries tells a different story than the conformance test scores suggest. Despite &lt;code&gt;ty&lt;&#x2F;code&gt;&#x27;s relatively low 15% full pass rate, it has been surprisingly effective at catching real bugs and providing useful feedback for common typing patterns.&lt;&#x2F;p&gt;
+&lt;p&gt;This suggests that while conformance test coverage is important for specification compliance and handling edge cases, it may not be the best predictor of a type checker&#x27;s utility for everyday Python development. The features that matter most for typical codebases appear to be working well across all three tools, even when they struggle with more esoteric typing scenarios.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-this-means-for-adoption-decisions&quot;&gt;What This Means for Adoption Decisions&lt;&#x2F;h3&gt;
+&lt;p&gt;For teams evaluating these type checkers, the conformance scores provide valuable insight into specification compliance, but shouldn&#x27;t be the sole deciding factor. Consider:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;For greenfield projects&lt;&#x2F;strong&gt;: Any of these tools will likely handle your immediate needs well&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;For large, complex codebases or libraries leaning on more esoteric generic patterns&lt;&#x2F;strong&gt;: Higher conformance scores may indicate better handling of advanced patterns you might encounter&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;For teams new to typing&lt;&#x2F;strong&gt;: The difference in conformance scores may be less relevant than IDE integration, error message quality, and performance&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;other-resources-to-learn-more&quot;&gt;Other resources to learn more&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;blog.edward-li.com&#x2F;tech&#x2F;comparing-pyrefly-vs-ty&#x2F;&quot;&gt;Edward Li&#x27;s excellent blog post comparing &lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; which also contains the videos recorded at the PyCon typing summit which both &lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt; gave presentations at.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=V1OmqEYoSz4&quot;&gt;Happy Path Programming - 114 ty: Fast Python Type Checking with Carl Meyer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=huHF0Rv8L14&quot;&gt;Happy Path Programming - 115 More Python Type Checking! Pyrefly with Aaron Pollack &amp;amp; Steven Troxler&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;talkpython.fm&#x2F;episodes&#x2F;show&#x2F;506&#x2F;ty-astrals-new-type-checker-formerly-red-knot&quot;&gt;Talk Python - ty: Astral&#x27;s New Type Checker (Formerly Red-Knot)&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;footnotes&quot;&gt;Footnotes&lt;&#x2F;h1&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;Which can be demonstrated in the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ruff&#x2F;issues?q=is%3Aissue%20state%3Aopen%20label%3Atype-inference&quot;&gt;open issues&lt;&#x2F;a&gt; on ruff tagged with &lt;code&gt;type-inference&lt;&#x2F;code&gt; which are bugs or new features that can only be resolved with &lt;code&gt;ruff&lt;&#x2F;code&gt; having access to deeper type inference data that &lt;code&gt;ty&lt;&#x2F;code&gt; can supply.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;2&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;2&lt;&#x2F;sup&gt;
+&lt;p&gt;David has indicated a plan to make &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;typing&#x2F;pull&#x2F;2067#issuecomment-3177937964&quot;&gt;source available in the future&lt;&#x2F;a&gt; when adding Zuban to the Python typing conformance suite.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;3&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;3&lt;&#x2F;sup&gt;
+&lt;p&gt;&lt;del&gt;Full pricing information at: https:&#x2F;&#x2F;zubanls.com&#x2F;pricing&#x2F;&lt;&#x2F;del&gt; &lt;strong&gt;Update (September 2025):&lt;&#x2F;strong&gt; Pricing is now available on request for the non-AGPL license.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;4&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;4&lt;&#x2F;sup&gt;
+&lt;p&gt;This is just for this blog post, no plans to seek merging this.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;!-- Reference links ---&gt;
+</description>
+      </item>
+      <item>
+          <title>TIL: Flowistry tool to understand information flow in Rust</title>
+          <pubDate>Thu, 28 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-flowistry/</link>
+          <guid>https://sinon.github.io/tils/til-flowistry/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-flowistry/">&lt;p&gt;When watching the excellent talk &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=R0dP-QR5wQo&quot;&gt;Rust for Everyone&lt;&#x2F;a&gt; by Will Crichton the item that stood out as potentially most useful day to day was &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;willcrichton&#x2F;flowistry&quot;&gt;Flowistry&lt;&#x2F;a&gt;. It is a VSCode extension, when a user clicks a variable the extension greys out all code that the variable does not interact with, it seems like it could be very useful when debugging.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Bridging Python &amp; Rust: A Walkthrough of using Py03</title>
+          <pubDate>Sun, 18 May 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/bridging-python-and-rust/</link>
+          <guid>https://sinon.github.io/bridging-python-and-rust/</guid>
+          <description xml:base="https://sinon.github.io/bridging-python-and-rust/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#bridging-python-and-rust-a-practical-guide-with-pyo3&quot;&gt;Bridging Python and Rust: A Practical Guide with PyO3&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#project-structure&quot;&gt;Project Structure&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#step-1-exposing-rust-functions-with-pyo3&quot;&gt;Step 1: Exposing Rust Functions with PyO3&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#step-2-building-and-packaging&quot;&gt;Step 2: Building and Packaging&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#step-3-using-the-library-from-python&quot;&gt;Step 3: Using the Library from Python&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#step-4-handling-errors&quot;&gt;Step 4: Handling Errors&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;bridging-python-and-rust&#x2F;#wrapping-up&quot;&gt;Wrapping Up&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;bridging-python-and-rust-a-practical-guide-with-pyo3&quot;&gt;Bridging Python and Rust: A Practical Guide with PyO3&lt;&#x2F;h1&gt;
+&lt;p&gt;Sometimes Python just isn&#x27;t fast enough, or you want to reuse some Rust code without rewriting it. &lt;a href=&quot;https:&#x2F;&#x2F;pyo3.rs&quot;&gt;PyO3&lt;&#x2F;a&gt; makes it surprisingly easy to call Rust from Python (or less commonly vice-versa). Here’s how I created &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme-python&quot;&gt;pngme-python&lt;&#x2F;a&gt; crate, to expose my already existing &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme&quot;&gt;pngme&lt;&#x2F;a&gt; Rust crate as a python library.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;project-structure&quot;&gt;Project Structure&lt;&#x2F;h2&gt;
+&lt;pre style=&quot;background-color:#191919;color:#ffffff;&quot;&gt;&lt;code&gt;&lt;span&gt;pngme&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;├── src&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── lib.rs
+&lt;&#x2F;span&gt;&lt;span&gt;├── Cargo.toml
+&lt;&#x2F;span&gt;&lt;span&gt;pngme-python&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;├── src&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── lib.rs
+&lt;&#x2F;span&gt;&lt;span&gt;├── tests&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── test_pngme.py
+&lt;&#x2F;span&gt;&lt;span&gt;├── Cargo.toml
+&lt;&#x2F;span&gt;&lt;span&gt;├── pyproject.toml
+&lt;&#x2F;span&gt;&lt;span&gt;├── README.md
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;pngme&#x2F;src&#x2F;lib.rs&lt;&#x2F;strong&gt;: The original Rust code with PNG manipulation functionality, that we want to expose as a Python library&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pngme-python&#x2F;src&#x2F;lib.rs&lt;&#x2F;strong&gt;: The Py03 bindings.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;test_pngme.py&lt;&#x2F;strong&gt;: Python tests to verify the bindings work correctly&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pngme-python&#x2F;src&#x2F;Cargo.toml&lt;&#x2F;strong&gt;: The build configuration for the Rust portion of the Py03&#x2F;Maturin build process.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;pyproject.toml&lt;&#x2F;strong&gt;: Python packaging configuration for Maturin&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;step-1-exposing-rust-functions-with-pyo3&quot;&gt;Step 1: Exposing Rust Functions with PyO3&lt;&#x2F;h2&gt;
+&lt;p&gt;PyO3 lets you turn Rust functions into Python-callable methods with minimal fuss. Here’s a trimmed-down version of the &lt;code&gt;encode&lt;&#x2F;code&gt;, &lt;code&gt;decode&lt;&#x2F;code&gt;, and &lt;code&gt;remove&lt;&#x2F;code&gt; functions from &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;blob&#x2F;main&#x2F;crates&#x2F;pngme-python&#x2F;src&#x2F;lib.rs&quot;&gt;src&#x2F;lib.rs&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#191919;color:#ffffff;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;use &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pyo3::prelude::&lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;#[pymodule]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;#[pyo3(name &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;pngme&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;mod &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pngme_python {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span&gt;use &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pyo3::exceptions::{PyFileNotFoundError, PyIOError, PyValueError};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span&gt;use &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pyo3::{prelude::&lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;, PyResult};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span&gt;use &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;std::path::PathBuf;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span&gt;use &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pngme_lib::{decode &lt;&#x2F;span&gt;&lt;span&gt;as&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; png_decode, encode &lt;&#x2F;span&gt;&lt;span&gt;as&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; png_encode, remove &lt;&#x2F;span&gt;&lt;span&gt;as&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; png_remove, Error};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    #[pyfunction]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span&gt;encode&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;path&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: PathBuf, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;chunk_type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: String, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;message&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: String) -&amp;gt; PyResult&amp;lt;()&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; result &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;png_encode&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;path, &lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;chunk_type, message);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; result {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;_&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(()),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(e) &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; e {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::FileNotFound { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyFileNotFoundError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::Read { source: s } &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyIOError::new_err(s.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::PNGParse &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::InvalidChunkType { source: s, &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(s.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::PNGWrite { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::ChunkNotFound { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::StrConversion &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            },
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    #[pyfunction]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span&gt;decode&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;path&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: PathBuf, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;chunk_type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: String) -&amp;gt; PyResult&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;String&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; result &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;png_decode&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;path, &lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;chunk_type);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; result {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(msg) &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(msg),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(e) &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; e {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::FileNotFound { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyFileNotFoundError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::Read { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyIOError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::PNGParse &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::InvalidChunkType { source: s, &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(s.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::PNGWrite { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::ChunkNotFound { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::StrConversion &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            },
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    #[pyfunction]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;pub fn &lt;&#x2F;span&gt;&lt;span&gt;remove&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;path&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: PathBuf, &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#8aa6c1;&quot;&gt;chunk_type&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;: String) -&amp;gt; PyResult&amp;lt;()&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; result &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;png_remove&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;path, &lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;chunk_type);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; result {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;_&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Ok&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(()),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(e) &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;match&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt; e {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::FileNotFound { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyFileNotFoundError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::Read { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyIOError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::PNGParse &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::InvalidChunkType { source: s, &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(s.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::PNGWrite { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::ChunkNotFound { &lt;&#x2F;span&gt;&lt;span&gt;.. &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;} &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;                Error::StrConversion &lt;&#x2F;span&gt;&lt;span&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;Err&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(PyValueError::new_err(e.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;())),
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;            },
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The key parts of this implementation:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;#[pymodule]&lt;&#x2F;code&gt; macro creates a Python module from the Rust module it encloses.&lt;&#x2F;li&gt;
+&lt;li&gt;Each &lt;code&gt;#[pyfunction]&lt;&#x2F;code&gt; within the Rust module adds a Rust function to Python the &lt;code&gt;#[pymodule]&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Each Rust error type must be handled and mapped to the appropriate Python exceptions.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;step-2-building-and-packaging&quot;&gt;Step 2: Building and Packaging&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;PyO3&#x2F;maturin&quot;&gt;Maturin&lt;&#x2F;a&gt; handles compiling the Rust code and packaging it as a Python wheel. Two configuration files control this process:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Cargo.toml&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#191919;color:#ffffff;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;[package]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;pngme-python&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;version &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;0.1.0&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;edition &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;2021&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;[lib]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;pngme&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;crate-type &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;cdylib&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;[dependencies]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;pyo3 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;version &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;0.18.3&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;features &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;extension-module&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;] }
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;pngme-lib &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;path &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;..&#x2F;pngme&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;strong&gt;pyproject.toml&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; style=&quot;background-color:#191919;color:#ffffff;&quot; class=&quot;language-toml &quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;[build-system]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;requires &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;maturin&amp;gt;=1.0,&amp;lt;2.0&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;build-backend &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;maturin&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;[project]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;pngme&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;version &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;0.1.0&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;description &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;Python bindings for pngme&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;readme &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;README.md&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;[tool.maturin]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;features &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;= [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;pyo3&#x2F;extension-module&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Building is as simple as:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#191919;color:#ffffff;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;maturin develop
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This creates a Python wheel that you can use directly or publish to PyPI.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;step-3-using-the-library-from-python&quot;&gt;Step 3: Using the Library from Python&lt;&#x2F;h2&gt;
+&lt;p&gt;Once built, and installed, just import and use the module in Python. An example can be found in &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;blob&#x2F;main&#x2F;crates&#x2F;pngme-python&#x2F;tests&#x2F;test_pngme.py&quot;&gt;tests&#x2F;test_pngme.py&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;python&quot; style=&quot;background-color:#191919;color:#ffffff;&quot; class=&quot;language-python &quot;&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pngme
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;def test_pngme_encode&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;():
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    file_location &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;.&#x2F;crates&#x2F;pngme-python&#x2F;tests&#x2F;dice.png&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    pngme.encode(file_location, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;ruSt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;some message&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    output &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pngme.decode(file_location, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;ruSt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;assert &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;output &lt;&#x2F;span&gt;&lt;span&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;some message&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    pngme.remove(file_location, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;ruSt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    nothing &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pngme.decode(file_location, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;ruSt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;assert &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;nothing &lt;&#x2F;span&gt;&lt;span&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;No secret message found&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;step-4-handling-errors&quot;&gt;Step 4: Handling Errors&lt;&#x2F;h2&gt;
+&lt;p&gt;PyO3 lets you map Rust errors to Python exceptions, so Python users get idiomatic error messages as shown below:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;python&quot; style=&quot;background-color:#191919;color:#ffffff;&quot; class=&quot;language-python &quot;&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pytest
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;def test_pngme_unknown_file&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;():
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;with &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;pytest.raises(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;FileNotFoundError&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;exc:
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;        pngme.encode(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;unknown.png&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;ruSt&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;quot;some message&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#80d500;&quot;&gt;assert &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffd700;&quot;&gt;&amp;#39;File not found &amp;quot;unknown.png&amp;quot;&amp;#39; &lt;&#x2F;span&gt;&lt;span&gt;in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8aa6c1;&quot;&gt;str&lt;&#x2F;span&gt;&lt;span style=&quot;color:#cccccc;&quot;&gt;(exc.value)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping Up&lt;&#x2F;h2&gt;
+&lt;p&gt;PyO3 makes it easy to bring Rust’s speed and safety to Python, with natural error handling and a smooth workflow. If you want to squeeze more performance out of Python or reuse Rust code, give it a try.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;pyo3.rs&quot;&gt;PyO3 Documentation&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;maturin.rs&quot;&gt;Maturin Documentation&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme-python&quot;&gt;pngme-python Source Code&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+      </item>
+      <item>
+          <title>Project-Based Learning: The Method That Made Rust Finally Click</title>
+          <pubDate>Fri, 07 Feb 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/project-based-learning/</link>
+          <guid>https://sinon.github.io/project-based-learning/</guid>
+          <description xml:base="https://sinon.github.io/project-based-learning/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#why&quot;&gt;Why?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#previous-learning-attempts&quot;&gt;Previous Learning Attempts&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#project-based-learning&quot;&gt;Project based learning&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#pngme&quot;&gt;PNGme&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#pngme&quot;&gt;CodeCrafters&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#conclusion-and-next-steps&quot;&gt;Conclusion and Next Steps&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Learning a new programming language is like building muscle - sporadic gym visits won&#x27;t get you far. After years of starting and abandoning Rust, I finally found a learning approach that sticks: hands-on projects that force you to write real code. This post traces my journey from tutorial hell to actually building things, and shares what worked (and what didn&#x27;t) in hopes of helping others avoid the same pitfalls.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why&quot;&gt;Why?&lt;&#x2F;h2&gt;
+&lt;p&gt;I always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow&#x27;s annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.&lt;&#x2F;p&gt;
+&lt;p&gt;Modern programming languages require robust tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. As a Python developer, Rust offers me a way to write performant, safe code without sacrificing productivity.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;previous-learning-attempts&quot;&gt;Previous Learning Attempts&lt;&#x2F;h2&gt;
+&lt;p&gt;My Rust journey has been a series of starts and stops:&lt;&#x2F;p&gt;
+&lt;p&gt;Pre-1.0 (2014): A brief experiment that ended quickly after writing a few basic functions. The borrow checker won that round.&lt;&#x2F;p&gt;
+&lt;p&gt;2020: My wife gifted me &quot;The Rust Programming Language&quot; book after overhearing my interest in Rust podcasts (particularly Rustacean Station). Finished the book and completed various small contained code examples but it was never put in to practice and started to fade.&lt;&#x2F;p&gt;
+&lt;p&gt;2023: Two slightly more serious attempts:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Explored Rust + Kafka integration for a potential work proposal&lt;&#x2F;li&gt;
+&lt;li&gt;Started on &lt;a href=&quot;https:&#x2F;&#x2F;www.zero2prod.com&quot;&gt;Zero to Production in Rust&lt;&#x2F;a&gt; in October, though as I followed along with the book I was also &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;z2p-axum&quot;&gt;re-implementing it in Axum&lt;&#x2F;a&gt; instead of Actix Web which the book uses. This was an improvement as the topic of the book aligned nicely with my day job as a Backend focussed engineer but I found I was learning more about Axum than making strides with my Rust fundamentals.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I ended up spending more time on AoC problem-solving patterns than Rust idioms.&lt;&#x2F;p&gt;
+&lt;p&gt;2024: Started preparing for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;project-based-learning&quot;&gt;Project based learning&lt;&#x2F;h2&gt;
+&lt;p&gt;It was around this time when trying to form the habit of writing Rust with the aim of working through AoC2024 that I came across the suggestion of &lt;a href=&quot;https:&#x2F;&#x2F;jrdngr.github.io&#x2F;pngme_book&#x2F;&quot;&gt;PNGme&lt;&#x2F;a&gt; in a response to a similar request for guidance from someone learning Rust in &lt;a href=&quot;https:&#x2F;&#x2F;old.reddit.com&#x2F;r&#x2F;rust&quot;&gt;r&#x2F;rust&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;pngme&quot;&gt;PNGme&lt;&#x2F;h3&gt;
+&lt;p&gt;PNGme bills itself as &quot;An Intermediate Rust Project&quot;. It comprises a series of chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or reading secret messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;&quot;&gt;My work&lt;&#x2F;a&gt; on this has expanded as the simple library has become a test bed to experiment with other parts of the Rust ecosystem such as:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python to Rust binding with &lt;a href=&quot;https:&#x2F;&#x2F;pyo3.rs&quot;&gt;pyO3&lt;&#x2F;a&gt; by building a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme-python&quot;&gt;PNGme python library&lt;&#x2F;a&gt; from the Rust library.&lt;&#x2F;li&gt;
+&lt;li&gt;Experimenting with GUI toolkit &lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;eframe&#x2F;&quot;&gt;eframe&lt;&#x2F;a&gt; using &lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;egui&#x2F;&quot;&gt;egui&lt;&#x2F;a&gt; by building a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme-gui&quot;&gt;GUI interface for PNGme&lt;&#x2F;a&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;A &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;compare&#x2F;main...pngme-www&quot;&gt;html frontend for PNGme&lt;&#x2F;a&gt; using Maud and Axum.&lt;&#x2F;li&gt;
+&lt;li&gt;Splitting a codebase into various crates in a single workspace.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;programming-projects-for-advanced-beginners&quot;&gt;Programming Projects for Advanced Beginners&lt;&#x2F;h3&gt;
+&lt;p&gt;Upon finishing up PNGme the author gives some suggestions of other projects based learning resources. One was &lt;a href=&quot;https:&#x2F;&#x2F;robertheaton.com&#x2F;2018&#x2F;12&#x2F;08&#x2F;programming-projects-for-advanced-beginners&#x2F;&quot;&gt;Programming Projects for Advanced Beginners&lt;&#x2F;a&gt;, a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.&lt;&#x2F;p&gt;
+&lt;p&gt;This led nicely into experimenting with &lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;ratatui&quot;&gt;ratatui&lt;&#x2F;a&gt; a library designed to help you to build Text User Interfaces (TUIs) resulting in:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;gridlife&quot;&gt;gridlife&lt;&#x2F;a&gt;: A library and TUI CLI for simulating Conway&#x27;s Game of Life automatons. This was a classic case of &quot;the interest is smaller than you think&quot;. A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs. The reason I had used ratatui in the first place was due to watching &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=hWG51Mc1DlM&quot;&gt;a talk Orhun gave at EuroRust&lt;&#x2F;a&gt;. This also gave me the nudge I needed to publish the library to &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&quot;&gt;crates.io&lt;&#x2F;a&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;A unfinished &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;snake&quot;&gt;snake&lt;&#x2F;a&gt; game.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;codecrafters&quot;&gt;CodeCrafters&lt;&#x2F;h3&gt;
+&lt;p&gt;After PNGme&#x27;s success, I discovered &lt;a href=&quot;https:&#x2F;&#x2F;codecrafters.io&#x2F;&quot;&gt;CodeCrafters&lt;&#x2F;a&gt; through Jon Gjengset&#x27;s videos. The platform offers hands-on projects where you build clones of real-world tools: Git, Redis, Docker, and more. Each project breaks down into small, testable steps with clear feedback.&lt;&#x2F;p&gt;
+&lt;p&gt;What sets CodeCrafters apart is its focus on real-world implementations rather than toy problems. Building a BitTorrent client or Redis server forces you to understand both Rust and the underlying protocols. The automated tests provide immediate feedback, while the step-by-step progression keeps you motivated.&lt;&#x2F;p&gt;
+&lt;p&gt;The projects I worked on via CodeCrafters are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;loxide&quot;&gt;loxide&lt;&#x2F;a&gt; - An implementation of an interpreter for the Lox language by Robert Nystrom from his excellent (and free) book &lt;a href=&quot;https:&#x2F;&#x2F;craftinginterpreters.com&#x2F;&quot;&gt;Crafting Interpreter&lt;&#x2F;a&gt;. This has given me a new appreciation for my 4 years studying Computer Science, with some regret that my early roles as a software engineer didn&#x27;t force me to make better use of what I learned before it started to atrophy.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;rsh&quot;&gt;rsh&lt;&#x2F;a&gt; - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an interpreter forces you to understand Rust, lexing, parsing, and evaluation. Automated tests provide instant feedback, maintaining momentum.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion-and-next-steps&quot;&gt;Conclusion and Next Steps&lt;&#x2F;h2&gt;
+&lt;p&gt;Looking back on the last 3-4 months I am frankly shocked by how productive I have been, in that span of time I have done more development work for my own pleasure than I had in the nearly 10 years preceding it.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Clear end goals keep you motivated&lt;&#x2F;li&gt;
+&lt;li&gt;Real-world projects force you to write idiomatic code&lt;&#x2F;li&gt;
+&lt;li&gt;Test suites provide immediate feedback&lt;&#x2F;li&gt;
+&lt;li&gt;Building actual tools is more engaging than solving puzzles&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Next steps:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters Interpreter project is not complete and stops after implementing functions.&lt;&#x2F;li&gt;
+&lt;li&gt;Contribute to some OSS project in the Rust ecosystem.&lt;&#x2F;li&gt;
+&lt;li&gt;Build a non-trivial web service in Axum.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;!-- Reference links ---&gt;
+</description>
+      </item>
+    </channel>
+</rss>

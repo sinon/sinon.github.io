@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  
+  <meta name="description" content="A practical guide to exposing Rust functions to Python using PyO3." />
+  
+  
+
+  <title>
+    
+    Bridging Python &amp; Rust: A Walkthrough of using Py03
+    
+</title>
+  <link rel="alternate" type="application/rss+xml" title="Rob&#x27;s Blog | Python • Rust • Ramblings? RSS Feed" href="https://sinon.github.io/rss.xml" />
+
+  
+  <link rel="stylesheet" href="https://sinon.github.io/site.css">
+  
+
+  
+<meta name="google-site-verification" content="-ht4RJntETG9MGDTzs9S26SvB4bY0x6xZVleu7oziUs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sinon.github.io/" />
+<meta property="og:site_name" content="Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+
+<meta property="og:url" content="https:&#x2F;&#x2F;sinon.github.io/bridging-python-and-rust/" />
+
+
+<meta property="og:title" content="Bridging Python &amp; Rust: A Walkthrough of using Py03 —&nbsp;Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+<meta property="og:description" content="A practical guide to exposing Rust functions to Python using PyO3." />
+
+
+<meta property="og:article:tag" content="rust,python,py03" />
+
+
+
+
+</head>
+
+<body class="hack dark main container">
+  
+
+
+    
+        
+  
+  <header class="nav-header">
+    <nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="navbar">
+      <div class="nav-links">
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io">
+          <span itemprop="name">Home</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/about/">
+          <span itemprop="name">About</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/now/">
+          <span itemprop="name">Now</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/boardgames">
+          <span itemprop="name">Boardgames</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tils/">
+          <span itemprop="name">TILs</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tags">
+          <span itemprop="name">Tags</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon/sinon.github.io">
+          <span itemprop="name">Source</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon">
+          <span itemprop="name">GitHub</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://raw.githubusercontent.com/sinon/CV/main/cv.pdf">
+          <span itemprop="name">CV</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/rss.xml">
+          <span itemprop="name">RSS</span></a>
+        
+      </div>
+    </nav>
+    
+
+  </header>
+  
+  
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Bridging Python &amp; Rust: A Walkthrough of using Py03</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>3 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-05-18
+</span>
+    </header>
+    <div itemprop="articleBody">
+      <ul>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#bridging-python-and-rust-a-practical-guide-with-pyo3">Bridging Python and Rust: A Practical Guide with PyO3</a></li>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#project-structure">Project Structure</a></li>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#step-1-exposing-rust-functions-with-pyo3">Step 1: Exposing Rust Functions with PyO3</a></li>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#step-2-building-and-packaging">Step 2: Building and Packaging</a></li>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#step-3-using-the-library-from-python">Step 3: Using the Library from Python</a></li>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#step-4-handling-errors">Step 4: Handling Errors</a></li>
+<li><a href="https://sinon.github.io/bridging-python-and-rust/#wrapping-up">Wrapping Up</a></li>
+</ul>
+<h1 id="bridging-python-and-rust-a-practical-guide-with-pyo3">Bridging Python and Rust: A Practical Guide with PyO3</h1>
+<p>Sometimes Python just isn't fast enough, or you want to reuse some Rust code without rewriting it. <a href="https://pyo3.rs">PyO3</a> makes it surprisingly easy to call Rust from Python (or less commonly vice-versa). Here’s how I created <a href="https://github.com/sinon/pngme/tree/main/crates/pngme-python">pngme-python</a> crate, to expose my already existing <a href="https://github.com/sinon/pngme/tree/main/crates/pngme">pngme</a> Rust crate as a python library.</p>
+<h2 id="project-structure">Project Structure</h2>
+<pre style="background-color:#191919;color:#ffffff;"><code><span>pngme/
+</span><span>├── src/
+</span><span>│   └── lib.rs
+</span><span>├── Cargo.toml
+</span><span>pngme-python/
+</span><span>├── src/
+</span><span>│   └── lib.rs
+</span><span>├── tests/
+</span><span>│   └── test_pngme.py
+</span><span>├── Cargo.toml
+</span><span>├── pyproject.toml
+</span><span>├── README.md
+</span><span>
+</span></code></pre>
+<ul>
+<li><strong>pngme/src/lib.rs</strong>: The original Rust code with PNG manipulation functionality, that we want to expose as a Python library</li>
+<li><strong>pngme-python/src/lib.rs</strong>: The Py03 bindings.</li>
+<li><strong>test_pngme.py</strong>: Python tests to verify the bindings work correctly</li>
+<li><strong>pngme-python/src/Cargo.toml</strong>: The build configuration for the Rust portion of the Py03/Maturin build process.</li>
+<li><strong>pyproject.toml</strong>: Python packaging configuration for Maturin</li>
+</ul>
+<h2 id="step-1-exposing-rust-functions-with-pyo3">Step 1: Exposing Rust Functions with PyO3</h2>
+<p>PyO3 lets you turn Rust functions into Python-callable methods with minimal fuss. Here’s a trimmed-down version of the <code>encode</code>, <code>decode</code>, and <code>remove</code> functions from <a href="https://github.com/sinon/pngme/blob/main/crates/pngme-python/src/lib.rs">src/lib.rs</a>:</p>
+<pre data-lang="rust" style="background-color:#191919;color:#ffffff;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#cccccc;">
+</span><span>use </span><span style="color:#cccccc;">pyo3::prelude::</span><span>*</span><span style="color:#cccccc;">;
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">#[pymodule]
+</span><span style="color:#cccccc;">#[pyo3(name </span><span>= </span><span style="color:#ffd700;">&quot;pngme&quot;</span><span style="color:#cccccc;">)]
+</span><span style="color:#80d500;">mod </span><span style="color:#cccccc;">pngme_python {
+</span><span style="color:#cccccc;">    </span><span>use </span><span style="color:#cccccc;">pyo3::exceptions::{PyFileNotFoundError, PyIOError, PyValueError};
+</span><span style="color:#cccccc;">    </span><span>use </span><span style="color:#cccccc;">pyo3::{prelude::</span><span>*</span><span style="color:#cccccc;">, PyResult};
+</span><span style="color:#cccccc;">    </span><span>use </span><span style="color:#cccccc;">std::path::PathBuf;
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">    </span><span>use </span><span style="color:#cccccc;">pngme_lib::{decode </span><span>as</span><span style="color:#cccccc;"> png_decode, encode </span><span>as</span><span style="color:#cccccc;"> png_encode, remove </span><span>as</span><span style="color:#cccccc;"> png_remove, Error};
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">    #[pyfunction]
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">pub fn </span><span>encode</span><span style="color:#cccccc;">(</span><span style="font-style:italic;color:#8aa6c1;">path</span><span style="color:#cccccc;">: PathBuf, </span><span style="font-style:italic;color:#8aa6c1;">chunk_type</span><span style="color:#cccccc;">: String, </span><span style="font-style:italic;color:#8aa6c1;">message</span><span style="color:#cccccc;">: String) -&gt; PyResult&lt;()&gt; {
+</span><span style="color:#cccccc;">        </span><span style="color:#80d500;">let</span><span style="color:#cccccc;"> result </span><span>= </span><span style="color:#8aa6c1;">png_encode</span><span style="color:#cccccc;">(</span><span>&amp;</span><span style="color:#cccccc;">path, </span><span>&amp;</span><span style="color:#cccccc;">chunk_type, message);
+</span><span style="color:#cccccc;">        </span><span style="color:#80d500;">match</span><span style="color:#cccccc;"> result {
+</span><span style="color:#cccccc;">            </span><span style="color:#8aa6c1;">Ok</span><span style="color:#cccccc;">(</span><span>_</span><span style="color:#cccccc;">) </span><span>=&gt; </span><span style="color:#8aa6c1;">Ok</span><span style="color:#cccccc;">(()),
+</span><span style="color:#cccccc;">            </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(e) </span><span>=&gt; </span><span style="color:#80d500;">match</span><span style="color:#cccccc;"> e {
+</span><span style="color:#cccccc;">                Error::FileNotFound { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyFileNotFoundError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::Read { source: s } </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyIOError::new_err(s.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::PNGParse </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::InvalidChunkType { source: s, </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(s.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::PNGWrite { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::ChunkNotFound { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::StrConversion </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">            },
+</span><span style="color:#cccccc;">        }
+</span><span style="color:#cccccc;">    }
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">    #[pyfunction]
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">pub fn </span><span>decode</span><span style="color:#cccccc;">(</span><span style="font-style:italic;color:#8aa6c1;">path</span><span style="color:#cccccc;">: PathBuf, </span><span style="font-style:italic;color:#8aa6c1;">chunk_type</span><span style="color:#cccccc;">: String) -&gt; PyResult&lt;</span><span style="color:#8aa6c1;">String</span><span style="color:#cccccc;">&gt; {
+</span><span style="color:#cccccc;">        </span><span style="color:#80d500;">let</span><span style="color:#cccccc;"> result </span><span>= </span><span style="color:#8aa6c1;">png_decode</span><span style="color:#cccccc;">(</span><span>&amp;</span><span style="color:#cccccc;">path, </span><span>&amp;</span><span style="color:#cccccc;">chunk_type);
+</span><span style="color:#cccccc;">        </span><span style="color:#80d500;">match</span><span style="color:#cccccc;"> result {
+</span><span style="color:#cccccc;">            </span><span style="color:#8aa6c1;">Ok</span><span style="color:#cccccc;">(msg) </span><span>=&gt; </span><span style="color:#8aa6c1;">Ok</span><span style="color:#cccccc;">(msg),
+</span><span style="color:#cccccc;">            </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(e) </span><span>=&gt; </span><span style="color:#80d500;">match</span><span style="color:#cccccc;"> e {
+</span><span style="color:#cccccc;">                Error::FileNotFound { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyFileNotFoundError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::Read { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyIOError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::PNGParse </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::InvalidChunkType { source: s, </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(s.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::PNGWrite { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::ChunkNotFound { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::StrConversion </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">            },
+</span><span style="color:#cccccc;">        }
+</span><span style="color:#cccccc;">    }
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">    #[pyfunction]
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">pub fn </span><span>remove</span><span style="color:#cccccc;">(</span><span style="font-style:italic;color:#8aa6c1;">path</span><span style="color:#cccccc;">: PathBuf, </span><span style="font-style:italic;color:#8aa6c1;">chunk_type</span><span style="color:#cccccc;">: String) -&gt; PyResult&lt;()&gt; {
+</span><span style="color:#cccccc;">        </span><span style="color:#80d500;">let</span><span style="color:#cccccc;"> result </span><span>= </span><span style="color:#8aa6c1;">png_remove</span><span style="color:#cccccc;">(</span><span>&amp;</span><span style="color:#cccccc;">path, </span><span>&amp;</span><span style="color:#cccccc;">chunk_type);
+</span><span style="color:#cccccc;">        </span><span style="color:#80d500;">match</span><span style="color:#cccccc;"> result {
+</span><span style="color:#cccccc;">            </span><span style="color:#8aa6c1;">Ok</span><span style="color:#cccccc;">(</span><span>_</span><span style="color:#cccccc;">) </span><span>=&gt; </span><span style="color:#8aa6c1;">Ok</span><span style="color:#cccccc;">(()),
+</span><span style="color:#cccccc;">            </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(e) </span><span>=&gt; </span><span style="color:#80d500;">match</span><span style="color:#cccccc;"> e {
+</span><span style="color:#cccccc;">                Error::FileNotFound { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyFileNotFoundError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::Read { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyIOError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::PNGParse </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::InvalidChunkType { source: s, </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(s.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::PNGWrite { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::ChunkNotFound { </span><span>.. </span><span style="color:#cccccc;">} </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">                Error::StrConversion </span><span>=&gt; </span><span style="color:#8aa6c1;">Err</span><span style="color:#cccccc;">(PyValueError::new_err(e.</span><span style="color:#8aa6c1;">to_string</span><span style="color:#cccccc;">())),
+</span><span style="color:#cccccc;">            },
+</span><span style="color:#cccccc;">        }
+</span><span style="color:#cccccc;">    }
+</span><span style="color:#cccccc;">}
+</span></code></pre>
+<p>The key parts of this implementation:</p>
+<ul>
+<li>The <code>#[pymodule]</code> macro creates a Python module from the Rust module it encloses.</li>
+<li>Each <code>#[pyfunction]</code> within the Rust module adds a Rust function to Python the <code>#[pymodule]</code>.</li>
+<li>Each Rust error type must be handled and mapped to the appropriate Python exceptions.</li>
+</ul>
+<h2 id="step-2-building-and-packaging">Step 2: Building and Packaging</h2>
+<p><a href="https://github.com/PyO3/maturin">Maturin</a> handles compiling the Rust code and packaging it as a Python wheel. Two configuration files control this process:</p>
+<p><strong>Cargo.toml</strong></p>
+<pre data-lang="toml" style="background-color:#191919;color:#ffffff;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#cccccc;">[package]
+</span><span style="color:#80d500;">name </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;pngme-python&quot;
+</span><span style="color:#80d500;">version </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;0.1.0&quot;
+</span><span style="color:#80d500;">edition </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;2021&quot;
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">[lib]
+</span><span style="color:#80d500;">name </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;pngme&quot;
+</span><span style="color:#80d500;">crate-type </span><span style="color:#cccccc;">= [</span><span style="color:#ffd700;">&quot;cdylib&quot;</span><span style="color:#cccccc;">]
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">[dependencies]
+</span><span style="color:#80d500;">pyo3 </span><span style="color:#cccccc;">= { </span><span style="color:#80d500;">version </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;0.18.3&quot;</span><span style="color:#cccccc;">, </span><span style="color:#80d500;">features </span><span style="color:#cccccc;">= [</span><span style="color:#ffd700;">&quot;extension-module&quot;</span><span style="color:#cccccc;">] }
+</span><span style="color:#80d500;">pngme-lib </span><span style="color:#cccccc;">= { </span><span style="color:#80d500;">path </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;../pngme&quot; </span><span style="color:#cccccc;">}
+</span></code></pre>
+<p><strong>pyproject.toml</strong></p>
+<pre data-lang="toml" style="background-color:#191919;color:#ffffff;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#cccccc;">[build-system]
+</span><span style="color:#80d500;">requires </span><span style="color:#cccccc;">= [</span><span style="color:#ffd700;">&quot;maturin&gt;=1.0,&lt;2.0&quot;</span><span style="color:#cccccc;">]
+</span><span style="color:#80d500;">build-backend </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;maturin&quot;
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">[project]
+</span><span style="color:#80d500;">name </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;pngme&quot;
+</span><span style="color:#80d500;">version </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;0.1.0&quot;
+</span><span style="color:#80d500;">description </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;Python bindings for pngme&quot;
+</span><span style="color:#80d500;">readme </span><span style="color:#cccccc;">= </span><span style="color:#ffd700;">&quot;README.md&quot;
+</span><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">[tool.maturin]
+</span><span style="color:#80d500;">features </span><span style="color:#cccccc;">= [</span><span style="color:#ffd700;">&quot;pyo3/extension-module&quot;</span><span style="color:#cccccc;">]
+</span></code></pre>
+<p>Building is as simple as:</p>
+<pre data-lang="bash" style="background-color:#191919;color:#ffffff;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#cccccc;">
+</span><span style="color:#cccccc;">maturin develop
+</span></code></pre>
+<p>This creates a Python wheel that you can use directly or publish to PyPI.</p>
+<h2 id="step-3-using-the-library-from-python">Step 3: Using the Library from Python</h2>
+<p>Once built, and installed, just import and use the module in Python. An example can be found in <a href="https://github.com/sinon/pngme/blob/main/crates/pngme-python/tests/test_pngme.py">tests/test_pngme.py</a>:</p>
+<pre data-lang="python" style="background-color:#191919;color:#ffffff;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#cccccc;">
+</span><span style="color:#80d500;">import </span><span style="color:#cccccc;">pngme
+</span><span style="color:#cccccc;">
+</span><span>def test_pngme_encode</span><span style="color:#cccccc;">():
+</span><span style="color:#cccccc;">    file_location </span><span>= </span><span style="color:#ffd700;">&quot;./crates/pngme-python/tests/dice.png&quot;
+</span><span style="color:#cccccc;">    pngme.encode(file_location, </span><span style="color:#ffd700;">&quot;ruSt&quot;</span><span style="color:#cccccc;">, </span><span style="color:#ffd700;">&quot;some message&quot;</span><span style="color:#cccccc;">)
+</span><span style="color:#cccccc;">    output </span><span>= </span><span style="color:#cccccc;">pngme.decode(file_location, </span><span style="color:#ffd700;">&quot;ruSt&quot;</span><span style="color:#cccccc;">)
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">assert </span><span style="color:#cccccc;">output </span><span>== </span><span style="color:#ffd700;">&quot;some message&quot;
+</span><span style="color:#cccccc;">    pngme.remove(file_location, </span><span style="color:#ffd700;">&quot;ruSt&quot;</span><span style="color:#cccccc;">)
+</span><span style="color:#cccccc;">    nothing </span><span>= </span><span style="color:#cccccc;">pngme.decode(file_location, </span><span style="color:#ffd700;">&quot;ruSt&quot;</span><span style="color:#cccccc;">)
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">assert </span><span style="color:#cccccc;">nothing </span><span>== </span><span style="color:#ffd700;">&quot;No secret message found&quot;
+</span></code></pre>
+<h2 id="step-4-handling-errors">Step 4: Handling Errors</h2>
+<p>PyO3 lets you map Rust errors to Python exceptions, so Python users get idiomatic error messages as shown below:</p>
+<pre data-lang="python" style="background-color:#191919;color:#ffffff;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#cccccc;">
+</span><span style="color:#80d500;">import </span><span style="color:#cccccc;">pytest
+</span><span style="color:#cccccc;">
+</span><span>def test_pngme_unknown_file</span><span style="color:#cccccc;">():
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">with </span><span style="color:#cccccc;">pytest.raises(</span><span style="color:#8aa6c1;">FileNotFoundError</span><span style="color:#cccccc;">) </span><span style="color:#80d500;">as </span><span style="color:#cccccc;">exc:
+</span><span style="color:#cccccc;">        pngme.encode(</span><span style="color:#ffd700;">&quot;unknown.png&quot;</span><span style="color:#cccccc;">, </span><span style="color:#ffd700;">&quot;ruSt&quot;</span><span style="color:#cccccc;">, </span><span style="color:#ffd700;">&quot;some message&quot;</span><span style="color:#cccccc;">)
+</span><span style="color:#cccccc;">    </span><span style="color:#80d500;">assert </span><span style="color:#ffd700;">&#39;File not found &quot;unknown.png&quot;&#39; </span><span>in </span><span style="color:#8aa6c1;">str</span><span style="color:#cccccc;">(exc.value)
+</span></code></pre>
+<h2 id="wrapping-up">Wrapping Up</h2>
+<p>PyO3 makes it easy to bring Rust’s speed and safety to Python, with natural error handling and a smooth workflow. If you want to squeeze more performance out of Python or reuse Rust code, give it a try.</p>
+<hr />
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://pyo3.rs">PyO3 Documentation</a></li>
+<li><a href="https://maturin.rs">Maturin Documentation</a></li>
+<li><a href="https://github.com/sinon/pngme/tree/main/crates/pngme-python">pngme-python Source Code</a></li>
+</ul>
+
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Rob Hand
+                
+                
+                
+                    
+                    tagged
+                    
+                        <a href="https://sinon.github.io/tags/rust/">rust</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/python/">python</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/py03/">py03</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+<script src="https://utteranc.es/client.js" repo="sinon/sinon.github.io" issue-term="url" label="comments"
+    theme="github-dark" crossorigin="anonymous" async>
+    </script>
+
+        </footer>
+    
+</article>
+
+
+
+
+  <!-- optional scripts -->
+  
+  
+  <script src="https://sinon.github.io/js/codeblock.js"></script>
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

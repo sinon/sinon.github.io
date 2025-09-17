@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - typing</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/typing/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Fri, 29 Aug 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>How Well Do New Python Type Checkers Conform? A Deep Dive into Ty, Pyrefly, and Zuban</title>
+          <pubDate>Fri, 29 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/future-python-type-checkers/</link>
+          <guid>https://sinon.github.io/future-python-type-checkers/</guid>
+          <description xml:base="https://sinon.github.io/future-python-type-checkers/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#introduction&quot;&gt;Introduction&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#the-incumbents&quot;&gt;The Incumbents&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#the-newcomers&quot;&gt;The Newcomers&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#ty-from-astral&quot;&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; from Astral&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#pyrefly-from-meta&quot;&gt;&lt;code&gt;pyrefly&lt;&#x2F;code&gt; from Meta&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#zuban-from-david-halter&quot;&gt;&lt;code&gt;zuban&lt;&#x2F;code&gt; from David Halter&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#typing-conformance-suite-analysis&quot;&gt;Typing Conformance Suite Analysis&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#summary&quot;&gt;Summary&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#review-of-progress&quot;&gt;Review of progress&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#relevance&quot;&gt;Relevance?&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#the-gap-between-conformance-and-real-world-usage&quot;&gt;The Gap Between Conformance and Real-World Usage&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#practical-experience-vs-test-scores&quot;&gt;Practical Experience vs. Test Scores&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#what-this-means-for-adoption-decisions&quot;&gt;What This Means for Adoption Decisions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#other-resources-to-learn-more&quot;&gt;Other resources to learn more&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;future-python-type-checkers&#x2F;#footnotes&quot;&gt;Footnotes&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;&#x2F;h1&gt;
+&lt;p&gt;The Python type checking landscape is experiencing a particularly active phase of innovation in 2025. This year has witnessed the emergence of not one, not two, but &lt;strong&gt;three&lt;&#x2F;strong&gt; new Python type checking tools, each backed by significant pedigree and resources. While these tools have slightly different goals and philosophies, they share a common foundation: all are built in Rust with performance as a core design principle.&lt;&#x2F;p&gt;
+&lt;p&gt;This continued shift toward Rust-based implementations represents a significant evolution in the Python tooling ecosystem, promising faster type checking, better IDE integration, and improved developer experience for large codebases.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-incumbents&quot;&gt;The Incumbents&lt;&#x2F;h2&gt;
+&lt;p&gt;Before examining these new Rust-based tools, it&#x27;s worth understanding the current landscape of Python type checkers that have established the foundation for static typing in Python:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;mypy&lt;&#x2F;strong&gt; - The original and most widely adopted Python type checker, developed by Jukka Lehtosalo and now maintained by the mypy team. As the reference implementation for Python&#x27;s type system, mypy has shaped many of the conventions and behaviors that newer tools aim to be compatible with. It&#x27;s written in Python and offers comprehensive type checking capabilities, though performance can become a bottleneck on large codebases.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;pyright&#x2F;Pylance&lt;&#x2F;strong&gt; - Microsoft&#x27;s type checker written in TypeScript&#x2F;Node.js. Pyright powers the Pylance extension in VS Code and is known for its fast performance and strong IDE integration. It often implements new typing features before other checkers and provides rich editor feedback, making it popular among developers who prioritize IDE experience.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;pyre&lt;&#x2F;strong&gt; - A type checker from Meta, written in a mix of OCaml and Python. Designed to handle Meta&#x27;s massive Python codebase, pyre introduced several performance optimizations and incremental checking capabilities. However, Meta is now developing pyrefly as pyre&#x27;s successor.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;pytype&lt;&#x2F;strong&gt; - Google&#x27;s type checker that takes a unique approach by performing type inference on unannotated Python code. Unlike other checkers that primarily validate existing type annotations, pytype can infer types from runtime behaviour and generate stub files for gradual typing adoption. Written in Python, it&#x27;s particularly useful for analysing legacy codebases without type hints. However, Google announced in 2025 that pytype is being deprecated and Python 3.12 will be the last supported version of Python.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-newcomers&quot;&gt;The Newcomers&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ty-from-astral&quot;&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; from Astral&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ty&#x2F;&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ty&#x2F;&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;Development Repository:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ruff&#x2F;&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ruff&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Key Highlights:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Strong focus on gradual guarantee principles&lt;&#x2F;li&gt;
+&lt;li&gt;Planned tight integration with Astral&#x27;s existing linting tool &lt;code&gt;ruff&lt;&#x2F;code&gt;, with the aim to support type based linting rules.&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Backing from a team combining Python core developers and very experienced Rust tooling developers&lt;&#x2F;li&gt;
+&lt;li&gt;Incremental computation at the function level leveraging the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;salsa-rs&#x2F;salsa&quot;&gt;salsa&lt;&#x2F;a&gt; library used by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust-analyzer&#x2F;&quot;&gt;rust-analyzer&lt;&#x2F;a&gt;. This could be particularly important on the LSP that &lt;code&gt;ty&lt;&#x2F;code&gt; provides to give very quick&#x2F;responsive feedback loops in code editors.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Philosophy:&lt;&#x2F;strong&gt; Astral&#x27;s approach emphasizes reliability and gradual adoption, making it easier for teams to incrementally add type checking to existing codebases without overwhelming developers with potential false positives.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;pyrefly-from-meta&quot;&gt;&lt;code&gt;pyrefly&lt;&#x2F;code&gt; from Meta&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;pyrefly&quot;&gt;https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;pyrefly&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Key Highlights:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Successor to Meta&#x27;s existing &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;pyre-check&quot;&gt;pyre&lt;&#x2F;a&gt; type checker, designed to eventually replace it&lt;&#x2F;li&gt;
+&lt;li&gt;Enhanced type inference capabilities by default&lt;&#x2F;li&gt;
+&lt;li&gt;Potentially higher upfront adoption cost due to aggressive inference which might flag issues with correct code&lt;&#x2F;li&gt;
+&lt;li&gt;Backed by Meta&#x27;s substantial engineering resources and real-world usage at scale&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Philosophy:&lt;&#x2F;strong&gt; Meta prioritizes powerful inference and catching more potential issues out of the box, even if this means a steeper learning curve for teams new to type checking.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;zuban-from-david-halter&quot;&gt;&lt;code&gt;zuban&lt;&#x2F;code&gt; from David Halter&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;Homepage:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;zubanls.com&#x2F;&quot;&gt;https:&#x2F;&#x2F;zubanls.com&#x2F;&lt;&#x2F;a&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;Documentation:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;docs.zubanls.com&#x2F;en&#x2F;latest&#x2F;&quot;&gt;https:&#x2F;&#x2F;docs.zubanls.com&#x2F;en&#x2F;latest&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Key Highlights:&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Created by the author of the popular Python LSP tool &lt;code&gt;jedi&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Aims for high-degree of compatibility with &lt;code&gt;mypy&lt;&#x2F;code&gt; to make adoption in large existing codebases seamless.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;del&gt;Not FOSS&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, will require a license for codebases above 1.5 MB (~50,000 lines of code)&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#3&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;del&gt;&lt;strong&gt;Update (September 2025):&lt;&#x2F;strong&gt; Now open source under the AGPL license, though commercial licensing is available for business who prefer to avoid AGPL compliance.&lt;&#x2F;li&gt;
+&lt;li&gt;Currently maintained by a single author seems a potential risk to long-term sustainability as Python typing does not stand still.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Philosophy:&lt;&#x2F;strong&gt; Zuban aims to provide the smoothest possible migration path from existing type checkers, particularly &lt;code&gt;mypy&lt;&#x2F;code&gt;, making it attractive for organizations with substantial existing typed codebases.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;typing-conformance-suite-analysis&quot;&gt;Typing Conformance Suite Analysis&lt;&#x2F;h1&gt;
+&lt;p&gt;The Python Typing Council maintains a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;typing&#x2F;tree&#x2F;main&#x2F;conformance&quot;&gt;Conformance test suite&lt;&#x2F;a&gt; which validates the behaviour of static type checkers against the expectations defined in the &lt;a href=&quot;https:&#x2F;&#x2F;typing.python.org&#x2F;en&#x2F;latest&#x2F;spec&#x2F;index.html&quot;&gt;Python typing specification&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt; have not yet been added to the conformance suite, so it&#x27;s harder to establish a baseline for their progress on this front.&lt;&#x2F;p&gt;
+&lt;p&gt;To help resolve this gap I have &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;typing&#x2F;pull&#x2F;1&quot;&gt;expanded the current test harness to support both of them&lt;&#x2F;a&gt;&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#4&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, this also adds some additional debugging information to the html report to show the split between false negatives and false positives that the suite has detected in each test case.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve also included a local build of &lt;code&gt;ty&lt;&#x2F;code&gt; for two main reasons:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;I&#x27;ve wanted to investigate contributing to &lt;code&gt;ty&lt;&#x2F;code&gt; and&#x2F;or &lt;code&gt;ruff&lt;&#x2F;code&gt; for a while, so this was good impetus to get things set up.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;ty&lt;&#x2F;code&gt; releases are cut relatively infrequently and I am impatient.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;Generated 29&#x2F;08&#x2F;2025&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NOTE&lt;&#x2F;p&gt;
+&lt;p&gt;The following section is slightly unfair, all of these tools are in alpha and only one of these tools (Zuban) has opted into the Conformance suite. This was mainly driven by own curiosity and seemed like an interesting project to understand the conformance test suite better.&lt;&#x2F;p&gt;
+&lt;p&gt;That being said even though &lt;code&gt;ty&lt;&#x2F;code&gt; is lagging on this metric at the moment it is still the type checker that I am most excited to use long-term because of the quality of the tooling Astral has built so far.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: center&quot;&gt;Type Checker&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total Test Case Passes&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total Test Case Partial&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total False Positives&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;Total False Negatives&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;zuban 0.0.20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;97&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;42&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;152&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;89&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;ty 0.0.1-alpha.19 (e9cb838b3 2025-08-19)&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;119&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;371&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;603&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;Local:ty ruff&#x2F;0.12.11+27 (0bf5d2a20 2025-08-29)&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;20&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;119&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;370&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;590&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;pyrefly 0.30.0&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;81&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;58&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;100&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;187&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;review-of-progress&quot;&gt;Review of progress&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;code&gt;zuban&lt;&#x2F;code&gt; has a lead, having full &lt;code&gt;Pass&lt;&#x2F;code&gt; on ~69% of test cases, compared with ~15% for &lt;code&gt;ty&lt;&#x2F;code&gt; and ~58% for &lt;code&gt;pyrefly&lt;&#x2F;code&gt;. Which makes sense as though it&#x27;s released in a similar time period to &lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt; it has been in active development in private for several years.&lt;&#x2F;p&gt;
+&lt;p&gt;The thing that surprised me more was how much progress &lt;code&gt;pyrefly&lt;&#x2F;code&gt; has made when compared to &lt;code&gt;ty&lt;&#x2F;code&gt;. Both broke cover and released their first advertised alpha builds around the same time, in the run up to PyCon 2025. This can maybe be partially explained from a point raised in &lt;a href=&quot;https:&#x2F;&#x2F;blog.edward-li.com&#x2F;tech&#x2F;comparing-pyrefly-vs-ty&#x2F;&quot;&gt;Edward Li&#x27;s excellent blog post on the Typing Summit at PyCon 2025&lt;&#x2F;a&gt; which mentions that the &lt;code&gt;pyrefly&lt;&#x2F;code&gt; team devoted a lot of up-front time to solving some of the hard problems, such as generics.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;relevance&quot;&gt;Relevance?&lt;&#x2F;h2&gt;
+&lt;p&gt;I initially came across the conformance test suite because &lt;code&gt;ty&lt;&#x2F;code&gt; runs every PR against the test suite and diffs the PR results against the results from &lt;code&gt;main&lt;&#x2F;code&gt; to ensure changes are desired. From this it&#x27;s become a surprisingly useful learning tool for some of the more advanced typing topics, but the advanced nature of these topics raises an important question: &lt;strong&gt;how relevant is the conformance suite pass rate for the average Python developer?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-gap-between-conformance-and-real-world-usage&quot;&gt;The Gap Between Conformance and Real-World Usage&lt;&#x2F;h3&gt;
+&lt;p&gt;The conformance test suite focuses heavily on advanced typing features that, while important for the specification, may not reflect the day-to-day typing needs of most Python codebases. Many of the test cases cover complex scenarios involving:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Advanced generic variance and bounds&lt;&#x2F;li&gt;
+&lt;li&gt;Complex protocol inheritance hierarchies&lt;&#x2F;li&gt;
+&lt;li&gt;Edge cases in structural subtyping&lt;&#x2F;li&gt;
+&lt;li&gt;Intricate interactions between multiple typing features&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In contrast, the majority of Python codebases primarily use:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Basic type annotations (&lt;code&gt;str&lt;&#x2F;code&gt;, &lt;code&gt;int&lt;&#x2F;code&gt;, &lt;code&gt;List[str]&lt;&#x2F;code&gt;, etc.)&lt;&#x2F;li&gt;
+&lt;li&gt;Simple class hierarchies&lt;&#x2F;li&gt;
+&lt;li&gt;Optional types and Union types&lt;&#x2F;li&gt;
+&lt;li&gt;Basic generic containers&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;practical-experience-vs-test-scores&quot;&gt;Practical Experience vs. Test Scores&lt;&#x2F;h3&gt;
+&lt;p&gt;My experience using the &lt;code&gt;ty&lt;&#x2F;code&gt; VSCode extension in place of &lt;code&gt;Pylance&lt;&#x2F;code&gt; across various projects and libraries tells a different story than the conformance test scores suggest. Despite &lt;code&gt;ty&lt;&#x2F;code&gt;&#x27;s relatively low 15% full pass rate, it has been surprisingly effective at catching real bugs and providing useful feedback for common typing patterns.&lt;&#x2F;p&gt;
+&lt;p&gt;This suggests that while conformance test coverage is important for specification compliance and handling edge cases, it may not be the best predictor of a type checker&#x27;s utility for everyday Python development. The features that matter most for typical codebases appear to be working well across all three tools, even when they struggle with more esoteric typing scenarios.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-this-means-for-adoption-decisions&quot;&gt;What This Means for Adoption Decisions&lt;&#x2F;h3&gt;
+&lt;p&gt;For teams evaluating these type checkers, the conformance scores provide valuable insight into specification compliance, but shouldn&#x27;t be the sole deciding factor. Consider:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;For greenfield projects&lt;&#x2F;strong&gt;: Any of these tools will likely handle your immediate needs well&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;For large, complex codebases or libraries leaning on more esoteric generic patterns&lt;&#x2F;strong&gt;: Higher conformance scores may indicate better handling of advanced patterns you might encounter&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;For teams new to typing&lt;&#x2F;strong&gt;: The difference in conformance scores may be less relevant than IDE integration, error message quality, and performance&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;other-resources-to-learn-more&quot;&gt;Other resources to learn more&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;blog.edward-li.com&#x2F;tech&#x2F;comparing-pyrefly-vs-ty&#x2F;&quot;&gt;Edward Li&#x27;s excellent blog post comparing &lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; which also contains the videos recorded at the PyCon typing summit which both &lt;code&gt;ty&lt;&#x2F;code&gt; and &lt;code&gt;pyrefly&lt;&#x2F;code&gt; gave presentations at.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=V1OmqEYoSz4&quot;&gt;Happy Path Programming - 114 ty: Fast Python Type Checking with Carl Meyer&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=huHF0Rv8L14&quot;&gt;Happy Path Programming - 115 More Python Type Checking! Pyrefly with Aaron Pollack &amp;amp; Steven Troxler&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;talkpython.fm&#x2F;episodes&#x2F;show&#x2F;506&#x2F;ty-astrals-new-type-checker-formerly-red-knot&quot;&gt;Talk Python - ty: Astral&#x27;s New Type Checker (Formerly Red-Knot)&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;footnotes&quot;&gt;Footnotes&lt;&#x2F;h1&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;Which can be demonstrated in the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;astral-sh&#x2F;ruff&#x2F;issues?q=is%3Aissue%20state%3Aopen%20label%3Atype-inference&quot;&gt;open issues&lt;&#x2F;a&gt; on ruff tagged with &lt;code&gt;type-inference&lt;&#x2F;code&gt; which are bugs or new features that can only be resolved with &lt;code&gt;ruff&lt;&#x2F;code&gt; having access to deeper type inference data that &lt;code&gt;ty&lt;&#x2F;code&gt; can supply.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;2&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;2&lt;&#x2F;sup&gt;
+&lt;p&gt;David has indicated a plan to make &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;typing&#x2F;pull&#x2F;2067#issuecomment-3177937964&quot;&gt;source available in the future&lt;&#x2F;a&gt; when adding Zuban to the Python typing conformance suite.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;3&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;3&lt;&#x2F;sup&gt;
+&lt;p&gt;&lt;del&gt;Full pricing information at: https:&#x2F;&#x2F;zubanls.com&#x2F;pricing&#x2F;&lt;&#x2F;del&gt; &lt;strong&gt;Update (September 2025):&lt;&#x2F;strong&gt; Pricing is now available on request for the non-AGPL license.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;4&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;4&lt;&#x2F;sup&gt;
+&lt;p&gt;This is just for this blog post, no plans to seek merging this.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;!-- Reference links ---&gt;
+</description>
+      </item>
+    </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - debugging</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/debugging/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Thu, 28 Aug 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>TIL: Flowistry tool to understand information flow in Rust</title>
+          <pubDate>Thu, 28 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-flowistry/</link>
+          <guid>https://sinon.github.io/tils/til-flowistry/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-flowistry/">&lt;p&gt;When watching the excellent talk &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=R0dP-QR5wQo&quot;&gt;Rust for Everyone&lt;&#x2F;a&gt; by Will Crichton the item that stood out as potentially most useful day to day was &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;willcrichton&#x2F;flowistry&quot;&gt;Flowistry&lt;&#x2F;a&gt;. It is a VSCode extension, when a user clicks a variable the extension greys out all code that the variable does not interact with, it seems like it could be very useful when debugging.&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

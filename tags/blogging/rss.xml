@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - blogging</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/blogging/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Wed, 27 Aug 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>TIL: Now page</title>
+          <pubDate>Wed, 27 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-now-page/</link>
+          <guid>https://sinon.github.io/tils/til-now-page/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-now-page/">&lt;p&gt;Added a &lt;a href=&quot;..&#x2F;..&#x2F;now&quot;&gt;Now&lt;&#x2F;a&gt; page to blog based on &lt;a href=&quot;https:&#x2F;&#x2F;nownownow.com&#x2F;about&quot;&gt;nownownow&lt;&#x2F;a&gt;. Since I don&#x27;t post on social media this seemed like a nice way to share what I am up to at the moment (to my many many readers... &lt;em&gt;&lt;strong&gt;crickets&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;)&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>TIL: Cleaning exif data from images</title>
+          <pubDate>Thu, 24 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/cleaning-exif-data/</link>
+          <guid>https://sinon.github.io/tils/cleaning-exif-data/</guid>
+          <description xml:base="https://sinon.github.io/tils/cleaning-exif-data/">&lt;p&gt;When uploading images to blog from phone need to remove GPS and other private metadata. For the blog I use &lt;a href=&quot;https:&#x2F;&#x2F;exiftool.org&#x2F;&quot;&gt;ExifTool&lt;&#x2F;a&gt; running &lt;code&gt;exiftool -gps:all= static&#x2F;*.jpg&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>Stepping Out of My Comfort Zone: A Backend Engineer&#x27;s Journey into Blogging</title>
+          <pubDate>Sun, 13 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/starting-a-blog/</link>
+          <guid>https://sinon.github.io/starting-a-blog/</guid>
+          <description xml:base="https://sinon.github.io/starting-a-blog/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;starting-a-blog&#x2F;#why-start-a-blog&quot;&gt;Why start a blog?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;starting-a-blog&#x2F;#the-nuts-and-bolts&quot;&gt;The nuts and bolts&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;starting-a-blog&#x2F;#why-zola&quot;&gt;Why Zola?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;starting-a-blog&#x2F;#why-github-pages&quot;&gt;Why Github Pages?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;starting-a-blog&#x2F;#conclusion-and-next-steps&quot;&gt;Conclusion and Next Steps&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;starting-a-blog&#x2F;#footnotes&quot;&gt;Footnotes&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;As a backend engineer with over a decade of experience,
+I&#x27;ve spent countless hours diving deep into code, architecting systems, and solving complex problems.
+But recently, I&#x27;ve felt a growing urge to step out of my comfort zone and embark on a new challenge: starting a blog.
+In this post, I&#x27;ll discuss my motivations for starting a blog and briefly explain my choice of tools: Zola and GitHub Pages.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-start-a-blog&quot;&gt;Why start a blog?&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Preserving Knowledge across Roles&lt;&#x2F;strong&gt;: In my current and past roles I have tried to follow parts of the recommendations in
+&lt;a href=&quot;https:&#x2F;&#x2F;jmmv.dev&#x2F;2021&#x2F;04&#x2F;always-be-quitting.html&quot;&gt;Always be quitting&lt;&#x2F;a&gt; when it comes to documenting various aspects of my role.
+The problem with this is that even when it&#x27;s a generic explainer or How To this information is lost to me once I move roles.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Personal knowledge management&lt;&#x2F;strong&gt;: Memory is imperfect, and trying to find the same piece of information
+you&#x27;ve already encountered can be frustrating, even in this brave new world of LLMs.
+A blog can serve as a personal wiki or Zettelkasten system,
+helping me organize and retrieve information more efficiently.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Rubber_duck_debugging&quot;&gt;Rubber duck debugging&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;: This technique for solving problems when
+combined with posting the updates in Slack or Teams naturally leads to a set of useful
+textual information, transforming this into a blog item that might help someone else or maybe more importantly my future self
+facing the same problem again is an attactive proposition.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.complexsystemspodcast.com&#x2F;&quot;&gt;Complex Systems Podcast&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;: I have recently been enjoying the podcast Complex Systems hosted by Patrick McKenzie (Patio11)
+which in many of its episodes re-enforces the role of regular written communication and the benefits of it in
+critical thinking and self-examination.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&quot;Show your workings&quot;&lt;&#x2F;strong&gt;: During secondary school, it was drilled into me to always show my workings in mathematics and science.
+The right answer wasn&#x27;t always enough; demonstrating how you came to that answer was almost as important&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;. While I didn&#x27;t fully appreciate this at the time, I&#x27;ve found throughout my professional life that following this mantra has solved or prevented many problems from developing.&lt;&#x2F;p&gt;
+&lt;p&gt;Blogging serves as an excellent platform for &quot;showing my workings&quot; in my professional context.
+By writing about my problem-solving processes, architectural decisions, or even my learning journey,
+I&#x27;m not just sharing the final solution but the entire thought process behind it. This approach offers several benefits:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;It helps me clarify my own thinking and often leads to new insights.&lt;&#x2F;li&gt;
+&lt;li&gt;It provides a valuable resource for others who might be facing similar challenges.&lt;&#x2F;li&gt;
+&lt;li&gt;It creates a record of my decision-making process, which can be incredibly useful when revisiting projects or defending choices later on.&lt;&#x2F;li&gt;
+&lt;li&gt;It encourages a culture of transparency and knowledge-sharing within the tech community.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;By treating my blog as a place to &quot;show my workings,&quot; I&#x27;m not just creating content – I&#x27;m cultivating a habit of thorough analysis and clear communication that will serve me well throughout my career.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;the-nuts-and-bolts&quot;&gt;The nuts and bolts&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;why-zola&quot;&gt;Why Zola?&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;getzola.org&quot;&gt;Zola&lt;&#x2F;a&gt; is written in Rust ⚡ which aligns well with my ongoing side project to improve my Rust proficiency. I&#x27;m actively seeking opportunities to apply and deepen my Rust knowledge, so Zola&#x27;s Rust foundation was a significant factor in my decision. By using Zola regularly for blogging, I hope to familiarize myself with its codebase. This familiarity could potentially lead to contributing to Zola&#x27;s open-source project in the future, further enhancing my Rust skills.&lt;&#x2F;li&gt;
+&lt;li&gt;It&#x27;s a SSG (Static Site Generator) which works nicely with Github Pages.&lt;&#x2F;li&gt;
+&lt;li&gt;Builds off strong pre-existing tooling such as Hugo, Pelican and Jeykyll.&lt;&#x2F;li&gt;
+&lt;li&gt;It uses Tera as its template engine, which has a syntax similar to Jinja2 and Django templates. This familiarity is advantageous, as I have prior experience with both Jinja2 and Django, reducing the learning curve for creating and managing blog templates.&lt;&#x2F;li&gt;
+&lt;li&gt;Content written in CommonMark (expanded with some Github flavour via &lt;a href=&quot;https:&#x2F;&#x2F;pulldown-cmark.github.io&#x2F;pulldown-cmark&#x2F;cheat-sheet.html&quot;&gt;&lt;code&gt;pulldown-cmark&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;why-github-pages&quot;&gt;Why Github Pages?&lt;&#x2F;h3&gt;
+&lt;p&gt;No real thought went into this choice, it was the default. Maybe in the future I will actually
+examine other options. This is mainly that it&#x27;s free, easy and fits easily into my usual
+development flows.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion-and-next-steps&quot;&gt;Conclusion and Next Steps&lt;&#x2F;h2&gt;
+&lt;p&gt;Starting this blog represents a practical step in documenting my work and sharing knowledge. By using Zola and GitHub Pages, I&#x27;m balancing the desire to learn new tools with the need for a straightforward, low-maintenance platform.&lt;&#x2F;p&gt;
+&lt;p&gt;Moving forward, I plan to focus on:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Documenting solutions to specific backend engineering problems I encounter&lt;&#x2F;li&gt;
+&lt;li&gt;Sharing brief explanations of useful techniques or patterns from my daily work&lt;&#x2F;li&gt;
+&lt;li&gt;Posting occasional updates on my progress with learning Rust and any Zola-related insights&lt;&#x2F;li&gt;
+&lt;li&gt;Writing about system design decisions and trade-offs from recent projects&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;I don&#x27;t have a fixed posting schedule, but I aim to write when I have something concrete and useful to share. The primary goal is to create a resource that&#x27;s valuable for my future self, with the added benefit of potentially helping others facing similar challenges.&lt;&#x2F;p&gt;
+&lt;p&gt;This blog is a work in progress, and its direction may evolve based on what I find most useful and manageable alongside my primary work. If you happen to find something helpful here, all the better.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;&#x2F;h2&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;Here is my current partner in debugging:&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;center&gt;
+&lt;img src=&quot;&#x2F;RubberDuckDarkSouls.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; alt=&quot;Dark Souls Rubber duck&quot;&#x2F;&gt;
+&lt;&#x2F;center&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;2&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;2&lt;&#x2F;sup&gt;
+&lt;p&gt;especially for the cases where you were actually wrong&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;!-- Reference links ---&gt;
+</description>
+      </item>
+    </channel>
+</rss>

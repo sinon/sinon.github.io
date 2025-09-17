@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  
+  <meta name="description" content="How hands-on projects finally helped me learn Rust after years of false starts." />
+  
+  
+
+  <title>
+    
+    Project-Based Learning: The Method That Made Rust Finally Click
+    
+</title>
+  <link rel="alternate" type="application/rss+xml" title="Rob&#x27;s Blog | Python • Rust • Ramblings? RSS Feed" href="https://sinon.github.io/rss.xml" />
+
+  
+  <link rel="stylesheet" href="https://sinon.github.io/site.css">
+  
+
+  
+<meta name="google-site-verification" content="-ht4RJntETG9MGDTzs9S26SvB4bY0x6xZVleu7oziUs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sinon.github.io/" />
+<meta property="og:site_name" content="Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+
+<meta property="og:url" content="https:&#x2F;&#x2F;sinon.github.io/project-based-learning/" />
+
+
+<meta property="og:title" content="Project-Based Learning: The Method That Made Rust Finally Click —&nbsp;Rob&#x27;s Blog | Python • Rust • Ramblings?" />
+
+
+<meta property="og:description" content="How hands-on projects finally helped me learn Rust after years of false starts." />
+
+
+<meta property="og:article:tag" content="rust,learning" />
+
+
+
+
+</head>
+
+<body class="hack dark main container">
+  
+
+
+    
+        
+  
+  <header class="nav-header">
+    <nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="navbar">
+      <div class="nav-links">
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io">
+          <span itemprop="name">Home</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/about/">
+          <span itemprop="name">About</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/now/">
+          <span itemprop="name">Now</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/boardgames">
+          <span itemprop="name">Boardgames</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tils/">
+          <span itemprop="name">TILs</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/tags">
+          <span itemprop="name">Tags</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon/sinon.github.io">
+          <span itemprop="name">Source</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://github.com/sinon">
+          <span itemprop="name">GitHub</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://raw.githubusercontent.com/sinon/CV/main/cv.pdf">
+          <span itemprop="name">CV</span></a>
+        
+        <a itemprop="url"
+          class=""
+          href="https://sinon.github.io/rss.xml">
+          <span itemprop="name">RSS</span></a>
+        
+      </div>
+    </nav>
+    
+
+  </header>
+  
+  
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Project-Based Learning: The Method That Made Rust Finally Click</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>7 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-02-07
+</span>
+    </header>
+    <div itemprop="articleBody">
+      <ul>
+<li><a href="https://sinon.github.io/project-based-learning/#why">Why?</a></li>
+<li><a href="https://sinon.github.io/project-based-learning/#previous-learning-attempts">Previous Learning Attempts</a></li>
+<li><a href="https://sinon.github.io/project-based-learning/#project-based-learning">Project based learning</a>
+<ul>
+<li><a href="https://sinon.github.io/project-based-learning/#pngme">PNGme</a></li>
+<li><a href="https://sinon.github.io/project-based-learning/#pngme">CodeCrafters</a></li>
+</ul>
+</li>
+<li><a href="https://sinon.github.io/project-based-learning/#conclusion-and-next-steps">Conclusion and Next Steps</a></li>
+</ul>
+<p>Learning a new programming language is like building muscle - sporadic gym visits won't get you far. After years of starting and abandoning Rust, I finally found a learning approach that sticks: hands-on projects that force you to write real code. This post traces my journey from tutorial hell to actually building things, and shares what worked (and what didn't) in hopes of helping others avoid the same pitfalls.</p>
+<h2 id="why">Why?</h2>
+<p>I always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow's annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.</p>
+<p>Modern programming languages require robust tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. As a Python developer, Rust offers me a way to write performant, safe code without sacrificing productivity.</p>
+<h2 id="previous-learning-attempts">Previous Learning Attempts</h2>
+<p>My Rust journey has been a series of starts and stops:</p>
+<p>Pre-1.0 (2014): A brief experiment that ended quickly after writing a few basic functions. The borrow checker won that round.</p>
+<p>2020: My wife gifted me "The Rust Programming Language" book after overhearing my interest in Rust podcasts (particularly Rustacean Station). Finished the book and completed various small contained code examples but it was never put in to practice and started to fade.</p>
+<p>2023: Two slightly more serious attempts:</p>
+<ul>
+<li>Explored Rust + Kafka integration for a potential work proposal</li>
+<li>Started on <a href="https://www.zero2prod.com">Zero to Production in Rust</a> in October, though as I followed along with the book I was also <a href="https://github.com/sinon/z2p-axum">re-implementing it in Axum</a> instead of Actix Web which the book uses. This was an improvement as the topic of the book aligned nicely with my day job as a Backend focussed engineer but I found I was learning more about Axum than making strides with my Rust fundamentals.</li>
+</ul>
+<p>Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I ended up spending more time on AoC problem-solving patterns than Rust idioms.</p>
+<p>2024: Started preparing for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.</p>
+<h2 id="project-based-learning">Project based learning</h2>
+<p>It was around this time when trying to form the habit of writing Rust with the aim of working through AoC2024 that I came across the suggestion of <a href="https://jrdngr.github.io/pngme_book/">PNGme</a> in a response to a similar request for guidance from someone learning Rust in <a href="https://old.reddit.com/r/rust">r/rust</a></p>
+<h3 id="pngme">PNGme</h3>
+<p>PNGme bills itself as "An Intermediate Rust Project". It comprises a series of chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or reading secret messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.</p>
+<p><a href="https://github.com/sinon/pngme/">My work</a> on this has expanded as the simple library has become a test bed to experiment with other parts of the Rust ecosystem such as:</p>
+<ul>
+<li>Python to Rust binding with <a href="https://pyo3.rs">pyO3</a> by building a <a href="https://github.com/sinon/pngme/tree/main/crates/pngme-python">PNGme python library</a> from the Rust library.</li>
+<li>Experimenting with GUI toolkit <a href="https://docs.rs/eframe/">eframe</a> using <a href="https://docs.rs/egui/">egui</a> by building a <a href="https://github.com/sinon/pngme/tree/main/crates/pngme-gui">GUI interface for PNGme</a>.</li>
+<li>A <a href="https://github.com/sinon/pngme/compare/main...pngme-www">html frontend for PNGme</a> using Maud and Axum.</li>
+<li>Splitting a codebase into various crates in a single workspace.</li>
+</ul>
+<h3 id="programming-projects-for-advanced-beginners">Programming Projects for Advanced Beginners</h3>
+<p>Upon finishing up PNGme the author gives some suggestions of other projects based learning resources. One was <a href="https://robertheaton.com/2018/12/08/programming-projects-for-advanced-beginners/">Programming Projects for Advanced Beginners</a>, a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.</p>
+<p>This led nicely into experimenting with <a href="https://docs.rs/ratatui">ratatui</a> a library designed to help you to build Text User Interfaces (TUIs) resulting in:</p>
+<ul>
+<li><a href="https://docs.rs/gridlife">gridlife</a>: A library and TUI CLI for simulating Conway's Game of Life automatons. This was a classic case of "the interest is smaller than you think". A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs. The reason I had used ratatui in the first place was due to watching <a href="https://www.youtube.com/watch?v=hWG51Mc1DlM">a talk Orhun gave at EuroRust</a>. This also gave me the nudge I needed to publish the library to <a href="https://crates.io">crates.io</a>.</li>
+<li>A unfinished <a href="https://github.com/sinon/snake">snake</a> game.</li>
+</ul>
+<h3 id="codecrafters">CodeCrafters</h3>
+<p>After PNGme's success, I discovered <a href="https://codecrafters.io/">CodeCrafters</a> through Jon Gjengset's videos. The platform offers hands-on projects where you build clones of real-world tools: Git, Redis, Docker, and more. Each project breaks down into small, testable steps with clear feedback.</p>
+<p>What sets CodeCrafters apart is its focus on real-world implementations rather than toy problems. Building a BitTorrent client or Redis server forces you to understand both Rust and the underlying protocols. The automated tests provide immediate feedback, while the step-by-step progression keeps you motivated.</p>
+<p>The projects I worked on via CodeCrafters are:</p>
+<ul>
+<li><a href="https://github.com/sinon/loxide">loxide</a> - An implementation of an interpreter for the Lox language by Robert Nystrom from his excellent (and free) book <a href="https://craftinginterpreters.com/">Crafting Interpreter</a>. This has given me a new appreciation for my 4 years studying Computer Science, with some regret that my early roles as a software engineer didn't force me to make better use of what I learned before it started to atrophy.</li>
+<li><a href="https://github.com/sinon/rsh">rsh</a> - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.</li>
+</ul>
+<p>The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an interpreter forces you to understand Rust, lexing, parsing, and evaluation. Automated tests provide instant feedback, maintaining momentum.</p>
+<h2 id="conclusion-and-next-steps">Conclusion and Next Steps</h2>
+<p>Looking back on the last 3-4 months I am frankly shocked by how productive I have been, in that span of time I have done more development work for my own pleasure than I had in the nearly 10 years preceding it.</p>
+<ol>
+<li>Clear end goals keep you motivated</li>
+<li>Real-world projects force you to write idiomatic code</li>
+<li>Test suites provide immediate feedback</li>
+<li>Building actual tools is more engaging than solving puzzles</li>
+</ol>
+<p>Next steps:</p>
+<ul>
+<li>Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters Interpreter project is not complete and stops after implementing functions.</li>
+<li>Contribute to some OSS project in the Rust ecosystem.</li>
+<li>Build a non-trivial web service in Axum.</li>
+</ul>
+<!-- Reference links --->
+
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Rob Hand
+                
+                
+                
+                    
+                    tagged
+                    
+                        <a href="https://sinon.github.io/tags/rust/">rust</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://sinon.github.io/tags/learning/">learning</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+<script src="https://utteranc.es/client.js" repo="sinon/sinon.github.io" issue-term="url" label="comments"
+    theme="github-dark" crossorigin="anonymous" async>
+    </script>
+
+        </footer>
+    
+</article>
+
+
+
+
+  <!-- optional scripts -->
+  
+  
+  <script src="https://sinon.github.io/js/codeblock.js"></script>
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
