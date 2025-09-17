@@ -1,0 +1,51 @@
+{% extends "after-dark/templates/page.html" %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ get_url(path='boardgames.css', trailing_slash=false) | safe }}">
+{% endblock css %}
+
+{% block content %}
+{% block header %}
+{{ super() }}
+{% endblock header %}
+<div class="boardgames-container">
+    <h1>Board Games Collection</h1>
+    <div id="games-grid" class="games-grid">
+        {% set data = load_data(path="static/boardgames_collection.json") %}
+        {% for game in data %}
+        {% set rating_class = "" %}
+        {% if game.my_rating %}
+        {% if game.my_rating >= 8 %}
+        {% set rating_class = "rating-high" %}
+        {% elif game.my_rating >= 6 %}
+        {% set rating_class = "rating-medium" %}
+        {% else %}
+        {% set rating_class = "rating-low" %}
+        {% endif %}
+        {% else %}
+        {% set rating_class = "rating-unrated" %}
+        {% endif %}
+        <div class="game-card">
+            <div class="game-header">
+                <img src="{{ game.thumbnail }}" alt="{{game.name}}" class="game-thumbnail">
+                <div class="game-info">
+                    <h3 class="game-title">{{game.name}}</h3>
+                    <p class="game-year">{{game.yearpublished}}</p>
+                </div>
+            </div>
+            <div class="game-stats">
+                <span>👥 {{game.stats.minplayers}}-{{game.stats.maxplayers}} players</span>
+                <span>⏱️ {{game.stats.playingtime}} min</span>
+            </div>
+            <div class="game-rating {{rating_class}}">
+                Rating: {% if game.my_rating %}{{game.my_rating}}{% else %}N/A{% endif %}
+            </div>
+            {% if game.comment %}
+            <div class="game-comment">{{game.comment}}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
