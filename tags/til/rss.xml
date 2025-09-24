@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - til</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/til/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Writing more, writing TILs</title>
+          <pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-about-tils-posts/</link>
+          <guid>https://sinon.github.io/tils/til-about-tils-posts/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-about-tils-posts/">&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;simonwillison.net&#x2F;&quot;&gt;Simon Willison&lt;&#x2F;a&gt; co-creator of Django, prolific blogger and general font of knowledge on how pelicans ride bicycles in this brave new LLM world, has a section of his blog devoted to TILs.&lt;&#x2F;p&gt;
+&lt;p&gt;To help make writing a more regular habit I am &lt;del&gt;copying&lt;&#x2F;del&gt; stealing this.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>TIL: Flowistry tool to understand information flow in Rust</title>
+          <pubDate>Thu, 28 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-flowistry/</link>
+          <guid>https://sinon.github.io/tils/til-flowistry/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-flowistry/">&lt;p&gt;When watching the excellent talk &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=R0dP-QR5wQo&quot;&gt;Rust for Everyone&lt;&#x2F;a&gt; by Will Crichton the item that stood out as potentially most useful day to day was &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;willcrichton&#x2F;flowistry&quot;&gt;Flowistry&lt;&#x2F;a&gt;. It is a VSCode extension, when a user clicks a variable the extension greys out all code that the variable does not interact with, it seems like it could be very useful when debugging.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>TIL: Now page</title>
+          <pubDate>Wed, 27 Aug 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/til-now-page/</link>
+          <guid>https://sinon.github.io/tils/til-now-page/</guid>
+          <description xml:base="https://sinon.github.io/tils/til-now-page/">&lt;p&gt;Added a &lt;a href=&quot;..&#x2F;..&#x2F;now&quot;&gt;Now&lt;&#x2F;a&gt; page to blog based on &lt;a href=&quot;https:&#x2F;&#x2F;nownownow.com&#x2F;about&quot;&gt;nownownow&lt;&#x2F;a&gt;. Since I don&#x27;t post on social media this seemed like a nice way to share what I am up to at the moment (to my many many readers... &lt;em&gt;&lt;strong&gt;crickets&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;)&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>TIL: Cleaning exif data from images</title>
+          <pubDate>Thu, 24 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/cleaning-exif-data/</link>
+          <guid>https://sinon.github.io/tils/cleaning-exif-data/</guid>
+          <description xml:base="https://sinon.github.io/tils/cleaning-exif-data/">&lt;p&gt;When uploading images to blog from phone need to remove GPS and other private metadata. For the blog I use &lt;a href=&quot;https:&#x2F;&#x2F;exiftool.org&#x2F;&quot;&gt;ExifTool&lt;&#x2F;a&gt; running &lt;code&gt;exiftool -gps:all= static&#x2F;*.jpg&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>

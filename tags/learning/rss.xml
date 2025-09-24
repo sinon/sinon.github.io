@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - learning</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/learning/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Fri, 07 Feb 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Project-Based Learning: The Method That Made Rust Finally Click</title>
+          <pubDate>Fri, 07 Feb 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/project-based-learning/</link>
+          <guid>https://sinon.github.io/project-based-learning/</guid>
+          <description xml:base="https://sinon.github.io/project-based-learning/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#why&quot;&gt;Why?&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#previous-learning-attempts&quot;&gt;Previous Learning Attempts&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#project-based-learning&quot;&gt;Project based learning&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#pngme&quot;&gt;PNGme&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#pngme&quot;&gt;CodeCrafters&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sinon.github.io&#x2F;project-based-learning&#x2F;#conclusion-and-next-steps&quot;&gt;Conclusion and Next Steps&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Learning a new programming language is like building muscle - sporadic gym visits won&#x27;t get you far. After years of starting and abandoning Rust, I finally found a learning approach that sticks: hands-on projects that force you to write real code. This post traces my journey from tutorial hell to actually building things, and shares what worked (and what didn&#x27;t) in hopes of helping others avoid the same pitfalls.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why&quot;&gt;Why?&lt;&#x2F;h2&gt;
+&lt;p&gt;I always wanted to learn Rust, with several false starts along the way. The appeal is clear - Rust consistently ranks as the most loved programming language in Stack Overflow&#x27;s annual developer survey for the past 8 years. It promises memory safety without garbage collection, fearless concurrency, and zero-cost abstractions.&lt;&#x2F;p&gt;
+&lt;p&gt;Modern programming languages require robust tools, and Rust delivers with its strict compiler, excellent tooling, and growing ecosystem. As a Python developer, Rust offers me a way to write performant, safe code without sacrificing productivity.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;previous-learning-attempts&quot;&gt;Previous Learning Attempts&lt;&#x2F;h2&gt;
+&lt;p&gt;My Rust journey has been a series of starts and stops:&lt;&#x2F;p&gt;
+&lt;p&gt;Pre-1.0 (2014): A brief experiment that ended quickly after writing a few basic functions. The borrow checker won that round.&lt;&#x2F;p&gt;
+&lt;p&gt;2020: My wife gifted me &quot;The Rust Programming Language&quot; book after overhearing my interest in Rust podcasts (particularly Rustacean Station). Finished the book and completed various small contained code examples but it was never put in to practice and started to fade.&lt;&#x2F;p&gt;
+&lt;p&gt;2023: Two slightly more serious attempts:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Explored Rust + Kafka integration for a potential work proposal&lt;&#x2F;li&gt;
+&lt;li&gt;Started on &lt;a href=&quot;https:&#x2F;&#x2F;www.zero2prod.com&quot;&gt;Zero to Production in Rust&lt;&#x2F;a&gt; in October, though as I followed along with the book I was also &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;z2p-axum&quot;&gt;re-implementing it in Axum&lt;&#x2F;a&gt; instead of Actix Web which the book uses. This was an improvement as the topic of the book aligned nicely with my day job as a Backend focussed engineer but I found I was learning more about Axum than making strides with my Rust fundamentals.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Late 2023: Returned to coding with Advent of Code. While this got me writing Rust daily for a few weeks, I ended up spending more time on AoC problem-solving patterns than Rust idioms.&lt;&#x2F;p&gt;
+&lt;p&gt;2024: Started preparing for another AoC attempt starting with some prep in November, more focused this time but still searching for a better learning approach.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;project-based-learning&quot;&gt;Project based learning&lt;&#x2F;h2&gt;
+&lt;p&gt;It was around this time when trying to form the habit of writing Rust with the aim of working through AoC2024 that I came across the suggestion of &lt;a href=&quot;https:&#x2F;&#x2F;jrdngr.github.io&#x2F;pngme_book&#x2F;&quot;&gt;PNGme&lt;&#x2F;a&gt; in a response to a similar request for guidance from someone learning Rust in &lt;a href=&quot;https:&#x2F;&#x2F;old.reddit.com&#x2F;r&#x2F;rust&quot;&gt;r&#x2F;rust&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;pngme&quot;&gt;PNGme&lt;&#x2F;h3&gt;
+&lt;p&gt;PNGme bills itself as &quot;An Intermediate Rust Project&quot;. It comprises a series of chapters each with a clear goal to build some functionality that will eventually evolve into a CLI tool for reading PNG files and then embedding or reading secret messages stored within. Almost as important as the guidance are the suite of tests to verify each chapter as you go.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;&quot;&gt;My work&lt;&#x2F;a&gt; on this has expanded as the simple library has become a test bed to experiment with other parts of the Rust ecosystem such as:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python to Rust binding with &lt;a href=&quot;https:&#x2F;&#x2F;pyo3.rs&quot;&gt;pyO3&lt;&#x2F;a&gt; by building a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme-python&quot;&gt;PNGme python library&lt;&#x2F;a&gt; from the Rust library.&lt;&#x2F;li&gt;
+&lt;li&gt;Experimenting with GUI toolkit &lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;eframe&#x2F;&quot;&gt;eframe&lt;&#x2F;a&gt; using &lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;egui&#x2F;&quot;&gt;egui&lt;&#x2F;a&gt; by building a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;tree&#x2F;main&#x2F;crates&#x2F;pngme-gui&quot;&gt;GUI interface for PNGme&lt;&#x2F;a&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;A &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;pngme&#x2F;compare&#x2F;main...pngme-www&quot;&gt;html frontend for PNGme&lt;&#x2F;a&gt; using Maud and Axum.&lt;&#x2F;li&gt;
+&lt;li&gt;Splitting a codebase into various crates in a single workspace.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;programming-projects-for-advanced-beginners&quot;&gt;Programming Projects for Advanced Beginners&lt;&#x2F;h3&gt;
+&lt;p&gt;Upon finishing up PNGme the author gives some suggestions of other projects based learning resources. One was &lt;a href=&quot;https:&#x2F;&#x2F;robertheaton.com&#x2F;2018&#x2F;12&#x2F;08&#x2F;programming-projects-for-advanced-beginners&#x2F;&quot;&gt;Programming Projects for Advanced Beginners&lt;&#x2F;a&gt;, a blog series by Robert Heaton which consist of prompts for small self-contained projects and some guidance on how you might approach and structure solving them.&lt;&#x2F;p&gt;
+&lt;p&gt;This led nicely into experimenting with &lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;ratatui&quot;&gt;ratatui&lt;&#x2F;a&gt; a library designed to help you to build Text User Interfaces (TUIs) resulting in:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;gridlife&quot;&gt;gridlife&lt;&#x2F;a&gt;: A library and TUI CLI for simulating Conway&#x27;s Game of Life automatons. This was a classic case of &quot;the interest is smaller than you think&quot;. A ratatui maintainer, Orhun Parmaksız, requested changes to my repo for use in a project of theirs. The reason I had used ratatui in the first place was due to watching &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=hWG51Mc1DlM&quot;&gt;a talk Orhun gave at EuroRust&lt;&#x2F;a&gt;. This also gave me the nudge I needed to publish the library to &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&quot;&gt;crates.io&lt;&#x2F;a&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;A unfinished &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;snake&quot;&gt;snake&lt;&#x2F;a&gt; game.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;codecrafters&quot;&gt;CodeCrafters&lt;&#x2F;h3&gt;
+&lt;p&gt;After PNGme&#x27;s success, I discovered &lt;a href=&quot;https:&#x2F;&#x2F;codecrafters.io&#x2F;&quot;&gt;CodeCrafters&lt;&#x2F;a&gt; through Jon Gjengset&#x27;s videos. The platform offers hands-on projects where you build clones of real-world tools: Git, Redis, Docker, and more. Each project breaks down into small, testable steps with clear feedback.&lt;&#x2F;p&gt;
+&lt;p&gt;What sets CodeCrafters apart is its focus on real-world implementations rather than toy problems. Building a BitTorrent client or Redis server forces you to understand both Rust and the underlying protocols. The automated tests provide immediate feedback, while the step-by-step progression keeps you motivated.&lt;&#x2F;p&gt;
+&lt;p&gt;The projects I worked on via CodeCrafters are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;loxide&quot;&gt;loxide&lt;&#x2F;a&gt; - An implementation of an interpreter for the Lox language by Robert Nystrom from his excellent (and free) book &lt;a href=&quot;https:&#x2F;&#x2F;craftinginterpreters.com&#x2F;&quot;&gt;Crafting Interpreter&lt;&#x2F;a&gt;. This has given me a new appreciation for my 4 years studying Computer Science, with some regret that my early roles as a software engineer didn&#x27;t force me to make better use of what I learned before it started to atrophy.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sinon&#x2F;rsh&quot;&gt;rsh&lt;&#x2F;a&gt; - A POSIX shell implementation that gave me a small peek behind the curtain to the complexity within the humble shell.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The real value of CodeCrafters is its focus on production-grade tools rather than toy problems. Building an interpreter forces you to understand Rust, lexing, parsing, and evaluation. Automated tests provide instant feedback, maintaining momentum.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion-and-next-steps&quot;&gt;Conclusion and Next Steps&lt;&#x2F;h2&gt;
+&lt;p&gt;Looking back on the last 3-4 months I am frankly shocked by how productive I have been, in that span of time I have done more development work for my own pleasure than I had in the nearly 10 years preceding it.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Clear end goals keep you motivated&lt;&#x2F;li&gt;
+&lt;li&gt;Real-world projects force you to write idiomatic code&lt;&#x2F;li&gt;
+&lt;li&gt;Test suites provide immediate feedback&lt;&#x2F;li&gt;
+&lt;li&gt;Building actual tools is more engaging than solving puzzles&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Next steps:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Complete the Lox Interpreter from CodeCrafters, and hopefully continue onto just following the book. As the CodeCrafters Interpreter project is not complete and stops after implementing functions.&lt;&#x2F;li&gt;
+&lt;li&gt;Contribute to some OSS project in the Rust ecosystem.&lt;&#x2F;li&gt;
+&lt;li&gt;Build a non-trivial web service in Axum.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;!-- Reference links ---&gt;
+</description>
+      </item>
+    </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Rob&#x27;s Blog | Python • Rust • Ramblings? - exif</title>
+      <link>https://sinon.github.io</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://sinon.github.io/tags/exif/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Thu, 24 Oct 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>TIL: Cleaning exif data from images</title>
+          <pubDate>Thu, 24 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://sinon.github.io/tils/cleaning-exif-data/</link>
+          <guid>https://sinon.github.io/tils/cleaning-exif-data/</guid>
+          <description xml:base="https://sinon.github.io/tils/cleaning-exif-data/">&lt;p&gt;When uploading images to blog from phone need to remove GPS and other private metadata. For the blog I use &lt;a href=&quot;https:&#x2F;&#x2F;exiftool.org&#x2F;&quot;&gt;ExifTool&lt;&#x2F;a&gt; running &lt;code&gt;exiftool -gps:all= static&#x2F;*.jpg&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
